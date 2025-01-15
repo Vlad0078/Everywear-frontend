@@ -1,0 +1,133 @@
+{
+  "home": "Головна сторінка",
+  "collection": "Колекція",
+  "about": "Про нас",
+  "contact": "Контакти",
+  "back": "Назад",
+  "nav": {
+    "orders": "Замовлення",
+    "profile": "Профіль",
+    "logout": "Вихід",
+    "lang-en": "Англійська",
+    "lang-uk": "Українська"
+  },
+  "bestsellers": "Хіти продажу",
+  "best-sellers": "Хіти продажу",
+  "latest-arrivals": "Останні надходження",
+  "shop-now": "Купити зараз",
+  "latest-collections": "Останні колекції",
+  "exchange-policy": "Політика обміну",
+  "exchange-policy-subtitle": "Ми пропонуємо безпроблемну політику обміну",
+  "quality-policy-subtitle": "We provide 7 days free return policy",
+  "support-policy": "Best Customer Support",
+  "quality-policy": "7 Days Return Policy",
+  "support-policy-subtitle": "We provide 24/7 customer support",
+  "newsletter-box": "Підпишіться зараз і отримайте знижку 20%",
+  "email-placeholder": "Введіть ваш email",
+  "subscribe": "ПІДПИСАТИСЬ",
+  "footer": {
+    "company": "ПРО КОМПАНІЮ",
+    "home": "Головна сторінка",
+    "about-us": "Про нас",
+    "delivery": "Доставка",
+    "privacy-policy": "Політика конфіденційності",
+    "get-in-touch": "ЗВ'ЯЗАТИСЯ З НАМИ",
+    "copyright": "Copyright 2025@ everywear.com - All Rights Reserved."
+  },
+  "filters": {
+    "title": "ФІЛЬТРИ",
+    "categories": "КАТЕГОРІЇ",
+    "men": "Чоловічий",
+    "women": "Жіночий",
+    "kids": "Дитячий",
+    "type": "ТИП",
+    "topwear": "Верхній одяг",
+    "bottomwear": "Нижній одяг",
+    "winterwear": "Зимовий одяг"
+  },
+  "sort": {
+    "sort-by": "Сортувати",
+    "relevant": "Релевантністю",
+    "low-high": "Спочатку дешевші",
+    "high-low": "Спочатку дорожчі"
+  },
+  "search": {
+    "placeholder": "Пошук"
+  },
+  "collection-page": {
+    "all-collections": "УСІ КОЛЕКЦІЇ"
+  },
+  "product-info": {
+    "select-size": "Оберіть розмір",
+    "add-to-cart": "ДО КОШИКА",
+    "original": "Оригінальний продукт.",
+    "cash-on-delivery": "Для цього товару доступна оплата при доставці.",
+    "return-exchange-polisy": "Легке повернення та обмін протягом 7 днів.",
+    "description": "Опис товару",
+    "reviews": "Відгуки"
+  },
+  "related-products": "ПОВ'ЯЗАНІ ТОВАРИ",
+  "select-size": "Оберіть розмір",
+  "cart": {
+    "title": "КОШИК",
+    "total-cost": "СУМА ЗАМОВЛЕННЯ",
+    "subtotal": "Проміжна ціна",
+    "delivery-fee": "Ціна доставки",
+    "total": "Сума",
+    "proceed-to-checkout": "ПЕРЕЙТИ ДО ОПЛАТИ"
+  },
+  "place-order": {
+    "delivery-info": "ІНФОРМАЦІЯ ПРО ДОСТАВКУ",
+    "first-name": "Ім'я",
+    "last-name": "Прізвище",
+    "surname": "По-батькові",
+    "email": "Електронна адреса",
+    "street-placeholder": "Вулиця",
+    "city-placeholder": "Місто",
+    "region-placeholder": "Область",
+    "country-placeholder": "Країна",
+    "zipcode-placeholder": "Поштовий індекс",
+    "phone-placeholder": "Телефон",
+    "payment-method": "СПОСІБ ОПЛАТИ",
+    "cash-on-delivery": "ОПЛАТА ПРИ ОТРИМАННІ",
+    "place-order-btn": "ЗАМОВИТИ"
+  },
+  "orders": {
+    "orders-title": "МОЇ ЗАМОВЛЕННЯ",
+    "purchase-date": "Дата",
+    "ready-to-ship": "Готове до відправки",
+    "track-order": "Відслідити замовлення"
+  },
+  "login": {
+    "sign-up": "Реєстрація",
+    "name": "Ім'я",
+    "email": "Пошта",
+    "password": "Пароль",
+    "login": "Вхід",
+    "forgot-password": "Не пам'ятаю пароль",
+    "goto-sign-up": "Створити аккаунт",
+    "goto-login": "Увійти",
+    "sign-up-btn": "Зареєструватися",
+    "sign-in-btn": "Увійти"
+  },
+  "about-page": {
+    "title": "ПРО НАС",
+    "why-choose-us": "ЧОМУ ВАРТО ОБРАТИ НАС",
+    "quality-assurance": "Гарантія якості",
+    "convenience": "Зручність",
+    "customer-service": "Виняткове обслуговування клієнтів"
+  },
+  "contact-page": {
+    "contact-us": "ЗВОРОТНІЙ ЗВ'ЯЗОК",
+    "our-store": "Наш магазин",
+    "addres": {
+      "street": "вулиця Володимирська, 60",
+      "city": "Київ, 01033, Україна"
+    },
+    "phone": "Тел",
+    "email": "Email",
+    "careers": "Співпраця з Everywear",
+    "our-teams": "Дізнайтеся більше про наші команди та вакансії",
+    "explore-jobs": "Переглянути вакансії"
+  }
+}

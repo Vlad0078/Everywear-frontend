@@ -1,0 +1,132 @@
+{
+  "home": "Home",
+  "collection": "Collection",
+  "about": "About",
+  "contact": "Contact",
+  "back": "Back",
+  "nav": {
+    "orders": "Orders",
+    "profile": "My profile",
+    "logout": "Logout",
+    "lang-en": "English",
+    "lang-uk": "Urkainian"
+  },
+  "bestsellers": "Bestsellers",
+  "best-sellers": "Best sellers",
+  "latest-arrivals": "Latest Arrivals",
+  "shop-now": "Shop now",
+  "latest-collections": "Latest collections",
+  "exchange-policy": "Easy Exchange Policy",
+  "exchange-policy-subtitle": "We offer hassle free exchange policy",
+  "quality-policy": "7 Days Return Policy",
+  "quality-policy-subtitle": "We provide 7 days free return policy",
+  "support-policy": "Best Customer Support",
+  "support-policy-subtitle": "We provide 24/7 customer support",
+  "newsletter-box": "Subscribe now and get 20% off",
+  "email-placeholder": "Enter your email",
+  "subscribe": "SUBSCRIBE",
+  "footer": {
+    "company": "COMPANY",
+    "home": "Home",
+    "about-us": "About us",
+    "delivery": "Delivery",
+    "privacy-policy": "Privacy policy",
+    "get-in-touch": "GET IN TOUCH",
+    "copyright": "Copyright 2025@ everywear.com - All Rights Reserved."
+  },
+  "filters": {
+    "title": "FILTERS",
+    "categories": "CATEGORIES",
+    "men": "Men",
+    "women": "Women",
+    "kids": "Kids",
+    "type": "TYPE",
+    "topwear": "Topwear",
+    "bottomwear": "Bottomwear",
+    "winterwear": "Winterwear"
+  },
+  "sort": {
+    "sort-by": "Sort by",
+    "relevant": "Relevant",
+    "low-high": "Low to High",
+    "high-low": "High to Low"
+  },
+  "search": {
+    "placeholder": "Search"
+  },
+  "collection-page": {
+    "all-collections": "ALL COLLECTIONS"
+  },
+  "product-info": {
+    "select-size": "Select Size",
+    "add-to-cart": "ADD TO CART",
+    "original": "Original product.",
+    "cash-on-delivery": "Cash on delivery is available on this product.",
+    "return-exchange-polisy": "Easy return and exchange polisy within 7 days.",
+    "description": "Description",
+    "reviews": "Reviews"
+  },
+  "related-products": "RELATED PRODUCTS",
+  "select-size": "Select Product Size",
+  "cart": {
+    "title": "CART",
+    "total-cost": "CART TOTALS",
+    "subtotal": "Subtotal",
+    "delivery-fee": "Shipping Fee",
+    "total": "Total",
+    "proceed-to-checkout": "PROCEED TO CHECKOUT"
+  },
+  "place-order": {
+    "delivery-info": "DELIVERY INFORMATION",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "email": "Email address",
+    "street-placeholder": "Street",
+    "city-placeholder": "City",
+    "region-placeholder": "Region",
+    "country-placeholder": "Country",
+    "zipcode-placeholder": "Zipcode",
+    "phone-placeholder": "Phone",
+    "payment-method": "PAYMENT METHOD",
+    "cash-on-delivery": "CASH ON DELIVERY",
+    "place-order-btn": "PLACE ORDER"
+  },
+  "orders": {
+    "orders-title": "MY ORDERS",
+    "purchase-date": "Date",
+    "ready-to-ship": "Ready to ship",
+    "track-order": "Track order"
+  },
+  "login": {
+    "sign-up": "Sign Up",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "forgot-password": "Forgot your password?",
+    "goto-sign-up": "Create account",
+    "goto-login": "Login here",
+    "sign-in-btn": "Sign In",
+    "sign-up-btn": "Sign Up"
+  },
+  "about-page": {
+    "title": "ABOUT US",
+    "why-choose-us": "WHY CHOOSE US",
+    "quality-assurance": "Quality Assurance",
+    "convenience": "Convenience",
+    "customer-service": "Exceptional Customer Service"
+  },
+  "contact-page": {
+    "contact-us": "CONTACT US",
+    "our-store": "Our Store",
+    "addres": {
+      "street": "вулиця Володимирська, 60",
+      "city": "Київ, 01033, Україна"
+    },
+    "phone": "Tel",
+    "email": "Email",
+    "careers": "Careers at Everywear",
+    "our-teams": "Learn more about our teams and job openings",
+    "explore-jobs": "Explore Jobs"
+  }
+}
