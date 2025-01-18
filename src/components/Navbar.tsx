@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useCartCount, setShowSearch } from "../store/store";
+import {
+  useCartCount,
+  setShowSearch,
+  setToken,
+  clearCart,
+  useShopStore,
+} from "../store/store";
 
 const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
+  const navigate = useNavigate();
+  const cartCount = useCartCount();
+  const token = useShopStore((state) => state.token);
 
   const [visible, setVisible] = useState(false);
 
-  const cartCount = useCartCount();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    clearCart();
+    navigate("/login");
+  };
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -45,33 +59,38 @@ const Navbar: React.FC = () => {
           alt=""
         />
         <div className="group relative">
-          <Link to={"/login"}>
-            <img
-              src={assets.profile_icon}
-              className="w-5 cursor-pointer"
-              alt=""
-            />
-          </Link>
-          <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-              <p className="cursor-pointer hover:text-black">
-                {t("nav.profile")}
-              </p>
-              <p className="cursor-pointer hover:text-black">
-                {t("nav.orders")}
-              </p>
-              <p className="cursor-pointer hover:text-black">
-                {t("nav.logout")}
-              </p>
+          <img
+            onClick={() => (token ? null : navigate("/login"))}
+            src={assets.profile_icon}
+            className="w-5 min-w-5 cursor-pointer"
+            alt=""
+          />
+          {/* //? ------------ PROFILE DROPDOWN ------------ */}
+          {token ? (
+            <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                <p className="cursor-pointer hover:text-black">
+                  {t("nav.profile")}
+                </p>
+                <p
+                  onClick={() => navigate("/orders")}
+                  className="cursor-pointer hover:text-black"
+                >
+                  {t("nav.orders")}
+                </p>
+                <p onClick={logout} className="cursor-pointer hover:text-black">
+                  {t("nav.logout")}
+                </p>
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         <div className="group relative">
           <div>
             <img src={assets.globe_icon} className="w-5 min-w-5" alt="" />
             <b className="absolute left-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-gray-100 text-black aspect-square rounded-full text-[0.5rem]">
-              UK
+              {i18n.language.toUpperCase()}
             </b>
           </div>
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">

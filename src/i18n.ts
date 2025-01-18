@@ -17,7 +17,7 @@ i18n
     // Распознавание и кэширование языковых кук
     detection: {
       order: ["queryString", "cookie"],
-      cache: ["cookie"],
+      caches: ["cookie"],
     },
     interpolation: {
       escapeValue: false,

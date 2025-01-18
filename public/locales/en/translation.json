@@ -107,7 +107,8 @@
     "goto-sign-up": "Create account",
     "goto-login": "Login here",
     "sign-in-btn": "Sign In",
-    "sign-up-btn": "Sign Up"
+    "sign-up-btn": "Sign Up",
+    "sign-up-error": "User with this email already exists "
   },
   "about-page": {
     "title": "ABOUT US",
@@ -128,5 +129,8 @@
     "careers": "Careers at Everywear",
     "our-teams": "Learn more about our teams and job openings",
     "explore-jobs": "Explore Jobs"
+  },
+  "store": {
+    "fetch-product-list-error": "Failed to fetch products"
   }
 }

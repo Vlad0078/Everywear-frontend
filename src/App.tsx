@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -13,8 +13,15 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import { ToastContainer } from "react-toastify";
+import { fetchProducts, fetchUserCart } from "./store/store";
 
 const App: React.FC = () => {
+  useEffect(() => {
+    fetchProducts();
+    fetchUserCart(); // ! тут може бути помилка бо products ще не завантажились
+    console.log("App Loaded");
+  }, []);
+
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <ToastContainer />

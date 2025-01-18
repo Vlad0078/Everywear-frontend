@@ -140,6 +140,7 @@ const Product: React.FC = () => {
       </div>
       {/* //? ------------ RELATED PRODUCTS ------------ */}
       <RelatedProducts
+        productId={productData._id}
         category={productData.category}
         subCategory={productData.subCategory}
       />

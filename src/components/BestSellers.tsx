@@ -8,6 +8,7 @@ import ProductItem from "./ProductItem";
 const BestSellers: React.FC = () => {
   const { t } = useTranslation();
   const products = useShopStore((state) => state.products);
+
   const [bestSellers, setBestSellers] = useState<ProductData[]>([]);
 
   useEffect(() => {

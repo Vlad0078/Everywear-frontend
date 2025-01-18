@@ -6,11 +6,13 @@ import { useTranslation } from "react-i18next";
 import ProductItem from "./ProductItem";
 
 interface RelatedProductsProps {
+  productId: string;
   category: string;
   subCategory: string;
 }
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({
+  productId,
   category,
   subCategory,
 }) => {
@@ -23,12 +25,15 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({
     if (products.length > 0) {
       let productsCopy = products.slice();
       productsCopy = productsCopy.filter(
-        (item) => item.category === category && item.subCategory === subCategory
+        (item) =>
+          item._id !== productId &&
+          item.category === category &&
+          item.subCategory === subCategory
       );
 
       setRelated(productsCopy.slice(0, 5));
     }
-  }, [category, products, subCategory]);
+  }, [category, productId, products, subCategory]);
 
   return (
     <div className="my-24">

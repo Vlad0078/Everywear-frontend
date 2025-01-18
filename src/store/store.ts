@@ -1,7 +1,17 @@
 import { create } from "zustand";
-import { products } from "../assets/assets";
 import { CartProductData, ProductData } from "../types/products";
 import { produce } from "immer";
+import axios, { AxiosResponse } from "axios";
+import { backendUrl } from "../constants";
+import {
+  AddToCartRequestBody,
+  GetCartResponseBody,
+  ListProductsResponseBody,
+  ResponseBody,
+  UpdateCartRequestBody,
+} from "../types/api-requests";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 type ShopState = {
   products: ProductData[];
@@ -10,61 +20,148 @@ type ShopState = {
   search: string;
   showSearch: boolean;
   cartItems: CartProductData;
+  token: string;
 };
 
 // * Defaults
 
 const initialState: ShopState = {
-  products: products,
+  products: [],
   currency: "$",
   delivery_fee: 10,
   search: "",
   showSearch: false,
   cartItems: {},
+  token: localStorage.getItem("token") || "",
 };
 
 // * Store
-export const useShopStore = create<ShopState>()(() => initialState);
+const useShopStore = create<ShopState>()(() => initialState);
 
 // * Actions
-export const setSearch = (search: string) => useShopStore.setState({ search });
+const setSearch = (search: string) => useShopStore.setState({ search });
 
-export const setShowSearch = (showSearch: boolean) =>
+// ? Token
+const setToken = (token: string) => useShopStore.setState({ token });
+
+const setShowSearch = (showSearch: boolean) =>
   useShopStore.setState({ showSearch });
 
-// ! async ?
-export const addToCart = async (itemId: string, size: string) =>
+// ? Add to Cart
+const addToCart = async (productId: string, size: string) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
-      if (draft.cartItems[itemId]) {
-        if (draft.cartItems[itemId][size]) {
+      if (draft.cartItems[productId]) {
+        if (draft.cartItems[productId][size]) {
           // вже є такий розмір
-          draft.cartItems[itemId][size].quantity += 1;
+          draft.cartItems[productId][size].quantity += 1;
         } else {
-          draft.cartItems[itemId][size] = { quantity: 1 }; // такого розміру ще немає
+          draft.cartItems[productId][size] = { quantity: 1 }; // такого розміру ще немає
         }
       } else {
-        draft.cartItems[itemId] = { [size]: { quantity: 1 } }; // такого id ще немає
+        draft.cartItems[productId] = { [size]: { quantity: 1 } }; // такого id ще немає
       }
     })
   );
 
-export const updateProductQuantity = async (
-  itemId: string,
+  // оновлюємо на сервері
+  const { token } = useShopStore.getState();
+
+  if (token) {
+    try {
+      await axios.post<
+        ResponseBody,
+        AxiosResponse<ResponseBody>,
+        AddToCartRequestBody
+      >(
+        backendUrl + "/api/cart/add",
+        { productId, size },
+        { headers: { token } }
+      );
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) toast.error(error.message);
+    }
+  }
+};
+
+const clearCart = () => useShopStore.setState({ cartItems: {} });
+
+const updateProductQuantity = async (
+  productId: string,
   size: string,
   quantity: number
-) =>
+) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
-      if (draft.cartItems[itemId] && draft.cartItems[itemId][size]) {
-        draft.cartItems[itemId][size].quantity = quantity;
+      if (draft.cartItems[productId] && draft.cartItems[productId][size]) {
+        draft.cartItems[productId][size].quantity = quantity;
       } else {
         throw new Error("No such product in a cart!");
       }
     })
   );
 
-export const useCartCount = () => {
+  // оновлюємо на сервері
+  const { token } = useShopStore.getState();
+
+  if (token) {
+    try {
+      await axios.post<
+        ResponseBody,
+        AxiosResponse<ResponseBody>,
+        UpdateCartRequestBody
+      >(
+        backendUrl + "/api/cart/update",
+        { productId, size, quantity },
+        { headers: { token } }
+      );
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) toast.error(error.message);
+    }
+  }
+};
+
+const fetchProducts = async () => {
+  try {
+    const response = await axios.get<ListProductsResponseBody>(
+      backendUrl + "/api/product/list"
+    );
+    if (response.data.success) {
+      useShopStore.setState({ products: response.data.products });
+    } else {
+      toast.error(t("store.fetch-product-list-error"));
+    }
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      toast.error(error.message);
+    }
+  }
+};
+
+const fetchUserCart = async () => {
+  const { token } = useShopStore.getState();
+
+  try {
+    const response = await axios.post<GetCartResponseBody>(
+      backendUrl + "/api/cart/get",
+      {},
+      { headers: { token } }
+    );
+    if (response.data.success) {
+      useShopStore.setState({ cartItems: response.data.cartData });
+    } else {
+      toast.error(t("store.fetch-product-list-error"));
+    }
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) toast.error(error.message);
+  }
+};
+
+const useCartCount = () => {
   return useShopStore((state) => {
     let totalCount = 0;
     for (const id in state.cartItems) {
@@ -77,14 +174,15 @@ export const useCartCount = () => {
   });
 };
 
-export const useCartTotalCost = () => {
+const useCartTotalCost = () => {
   //! async ?
   return useShopStore((state) => {
     let totalCost = 0;
     for (const id in state.cartItems) {
-      const product = products.find((product) => product._id === id);
+      const product = state.products.find((product) => product._id === id); // ! тут може бути помилка
       if (product === undefined) {
-        throw new Error(`No products with id ${id}`);
+        // throw new Error(`No products with id ${id}`);
+        return;
       }
 
       for (const size in state.cartItems[id]) {
@@ -96,4 +194,18 @@ export const useCartTotalCost = () => {
 
     return totalCost;
   });
+};
+
+export {
+  useShopStore,
+  setSearch,
+  setToken,
+  setShowSearch,
+  addToCart,
+  clearCart,
+  updateProductQuantity,
+  fetchProducts,
+  fetchUserCart,
+  useCartCount,
+  useCartTotalCost,
 };

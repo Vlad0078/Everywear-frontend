@@ -97,7 +97,7 @@ export const assets: Record<string, string> = {
   cross_icon,
 };
 
-export const products: ProductData[] = [
+const products: ProductData[] = [
   {
     _id: "aaaaa",
     name: "Women Round Neck Cotton Top",

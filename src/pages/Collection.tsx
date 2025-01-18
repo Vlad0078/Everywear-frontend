@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useShopStore } from "../store/store";
+import { fetchProducts, useShopStore } from "../store/store";
 import { useTranslation } from "react-i18next";
 import { assets } from "../assets/assets";
 import Title from "../components/Title";
@@ -23,6 +23,10 @@ const Collection: React.FC = () => {
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [sortType, setSortType] = useState("relevant");
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const toggleCategory: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (category.includes(e.target.value)) {
