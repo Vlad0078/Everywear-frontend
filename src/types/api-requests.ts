@@ -1,6 +1,12 @@
-import { CartProductData, ProductData } from "./products";
 import { Request } from "express";
 import { IncomingHttpHeaders } from "http";
+import {
+  CartProductData,
+  OrderData,
+  OrderItem,
+  ProductData,
+  UserAddressInfo,
+} from "./products";
 
 interface CustomRequest extends Request {
   headers: IncomingHttpHeaders & {
@@ -12,7 +18,7 @@ interface ResponseBody {
   success: boolean;
   message?: string;
   token?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // user
@@ -62,7 +68,36 @@ interface GetCartResponseBody extends ResponseBody {
   cartData?: CartProductData;
 }
 
-export {
+// orders
+interface AllOrdersRequestBody {}
+interface UpdateStatusRequestBody {
+  orderId: string;
+  status: string;
+}
+
+interface PlaceOrderRequestBody {
+  items: OrderItem[];
+  amount: number;
+  address: UserAddressInfo;
+}
+
+interface VerifyStripeRequestBody {
+  orderId: string;
+  success: string;
+}
+
+interface PlaceOrderRazorpayRequestBody {}
+
+interface OrdersResponseBody extends ResponseBody {
+  orders?: OrderData[];
+}
+
+// payment
+interface StripeResponseBody extends ResponseBody {
+  session_url?: string | null;
+}
+
+export type {
   CustomRequest,
   ResponseBody,
   LoginRequestBody,
@@ -74,4 +109,11 @@ export {
   AddToCartRequestBody,
   UpdateCartRequestBody,
   GetCartResponseBody,
+  AllOrdersRequestBody,
+  UpdateStatusRequestBody,
+  PlaceOrderRequestBody,
+  VerifyStripeRequestBody,
+  PlaceOrderRazorpayRequestBody,
+  OrdersResponseBody,
+  StripeResponseBody,
 };

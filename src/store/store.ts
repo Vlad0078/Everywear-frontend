@@ -182,7 +182,7 @@ const useCartTotalCost = () => {
       const product = state.products.find((product) => product._id === id); // ! тут може бути помилка
       if (product === undefined) {
         // throw new Error(`No products with id ${id}`);
-        return;
+        return 0;
       }
 
       for (const size in state.cartItems[id]) {

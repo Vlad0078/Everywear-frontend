@@ -54,7 +54,8 @@ import p_img50 from "./p_img50.png";
 import p_img51 from "./p_img51.png";
 import p_img52 from "./p_img52.png";
 
-import logo from "./logo.png";
+// import logo from "./logo.png";
+import logo from "./everywear_logo.svg";
 import hero_img from "./hero_img.png";
 import cart_icon from "./cart_icon.png";
 import globe_icon from "./globe_icon.png";

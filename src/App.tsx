@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import { ToastContainer } from "react-toastify";
 import { fetchProducts, fetchUserCart } from "./store/store";
+import Verify from "./pages/Verify";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -37,6 +38,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/place-order" element={<PlaceOrder />}></Route>
         <Route path="/orders" element={<Orders />}></Route>
+        <Route path="/verify" element={<Verify />}></Route>
       </Routes>
       <Footer />
     </div>
