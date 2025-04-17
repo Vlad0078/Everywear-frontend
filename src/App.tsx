@@ -11,15 +11,15 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Orders from "./pages/Orders";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
 import { ToastContainer } from "react-toastify";
-import { fetchProducts, fetchUserCart } from "./store/store";
+import { loadUserCart, loadCategories, loadSubcategories } from "./store/store";
 import Verify from "./pages/Verify";
 
 const App: React.FC = () => {
   useEffect(() => {
-    fetchProducts();
-    fetchUserCart(); // ! тут може бути помилка бо products ще не завантажились
+    loadCategories();
+    loadSubcategories();
+    loadUserCart(); // ! тут може бути помилка бо products ще не завантажились
     console.log("App Loaded");
   }, []);
 
@@ -27,10 +27,11 @@ const App: React.FC = () => {
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <ToastContainer />
       <Navbar />
-      <SearchBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/collection" element={<Collection />}></Route>
+        <Route path="/collection/women" element={<Collection target="women" />}></Route>
+        <Route path="/collection/men" element={<Collection target="men" />}></Route>
+        <Route path="/collection/kids" element={<Collection target="kids" />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/product/:productId" element={<Product />}></Route>

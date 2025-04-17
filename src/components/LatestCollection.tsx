@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useShopStore } from "../store/store";
 import Title from "./Title";
 import { useTranslation } from "react-i18next";
 import ProductItem from "./ProductItem";
-import { ProductData } from "../types/products";
+import { ProductData } from "../types/product";
+import { fetchProducts } from "../utils/api";
+import i18n from "../i18n";
 
 const LatestCollection: React.FC = () => {
   const { t } = useTranslation();
-  const products = useShopStore((state) => state.products);
   const [latestProducts, setLatestProducts] = useState<ProductData[]>([]);
 
   useEffect(() => {
-    setLatestProducts(products.slice(0, 10));
-  }, [products]);
+    fetchProducts({ page: 1, resultsOnPage: 10, sortField: "createdAt", sortDesc: true }).then(
+      (data) => {
+        if (data && data.products) setLatestProducts(data.products);
+      }
+    );
+  }, []);
 
   return (
     <div className="my-10">
@@ -26,8 +30,8 @@ const LatestCollection: React.FC = () => {
           <ProductItem
             key={index}
             id={item._id}
-            image={item.image}
-            name={item.name}
+            images={item.images}
+            name={i18n.language === "uk" ? item.name_uk : item.name_en}
             price={item.price}
           />
         ))}

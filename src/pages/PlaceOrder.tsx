@@ -4,25 +4,19 @@ import { useTranslation } from "react-i18next";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
-import { clearCart, useCartTotalCost, useShopStore } from "../store/store";
-import { OrderItem, UserAddressInfo } from "../types/products";
-import axios, { AxiosResponse } from "axios";
-import {
-  PlaceOrderRequestBody,
-  ResponseBody,
-  StripeResponseBody,
-} from "../types/api-requests";
-import { backendUrl } from "../constants";
+import { clearCart, useShopStore } from "../store/store";
+import { OrderData, UserAddressInfo } from "../types/product";
+import { ResponseBody } from "../types/api-requests";
 import { toast } from "react-toastify";
+import { TextField } from "@mui/material";
+import { placeOrderCod, placeOrderStripe } from "../utils/api";
 
 const PlaceOrder: React.FC = () => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const token = useShopStore((state) => state.token);
   const cartItems = useShopStore((state) => state.cartItems);
-  const products = useShopStore((state) => state.products);
-  const amount = useCartTotalCost();
 
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
@@ -35,7 +29,6 @@ const PlaceOrder: React.FC = () => {
     city: "",
     region: "",
     zipcode: "",
-    country: "",
     phone: "",
   });
 
@@ -48,70 +41,54 @@ const PlaceOrder: React.FC = () => {
 
   const onSubmitHandler: FormEventHandler = async (event) => {
     event.preventDefault();
+
     try {
-      const orderItems: OrderItem[] = [];
-      for (const id in cartItems) {
-        for (const size in cartItems[id]) {
-          if (cartItems[id][size].quantity > 0) {
-            const product = products.find((product) => product._id === id);
-            if (!product) throw new Error(t("product.not-found-error"));
-            const itemInfo: OrderItem = {
-              ...product,
-              size: size,
-              quantity: cartItems[id][size].quantity,
-            };
-            orderItems.push(itemInfo);
-          }
-        }
+      if (!cartItems.length) {
+        toast.error(t("place-order.cart-empty-error"));
+        return;
       }
 
-      if (!orderItems.length)
-        throw new Error(t("place-order.cart-empty-error"));
-
-      const orderData = {
-        items: orderItems,
-        amount: amount,
+      const order: OrderData = {
+        _id: "",
+        customerId: "",
+        items: cartItems,
+        amount: 0,
         address: formData,
+        status: "order-placed",
+        paymentMethod: "cod",
+        payment: false,
       };
 
       switch (paymentMethod) {
         case "cod": {
-          const response = await axios.post<
-            ResponseBody,
-            AxiosResponse<ResponseBody>,
-            PlaceOrderRequestBody
-          >(backendUrl + "/api/order/place", orderData, { headers: { token } });
-          if (response.data.success) {
+          const response = await placeOrderCod(order, token);
+          if (response) {
             clearCart();
             navigate("/orders");
           } else {
-            toast.error(response.data.message);
+            toast.error(t("place-order.place-error"));
           }
           break;
         }
 
         case "stripe": {
-          const response = await axios.post<
-            StripeResponseBody,
-            AxiosResponse<StripeResponseBody>,
-            PlaceOrderRequestBody
-          >(backendUrl + "/api/order/stripe", orderData, {
-            headers: { token },
-          });
-          if (response.data.success && response.data.session_url) {
-            const { session_url } = response.data;
-            // перенаправлення користувача на сторінку
+          order.paymentMethod = "stripe";
+          const response = await placeOrderStripe(order, token);
+          if (response) {
+            clearCart();
+            const session_url = response.session_url!;
+            // перенаправлення користувача на сторінку оплати
             window.location.replace(session_url);
             clearCart();
           } else {
-            toast.error(response.data.message);
+            toast.error(t("place-order.place-error"));
           }
           break;
         }
-        // ! ...
 
         default:
-          return; // !
+          toast.error(t("place-order.place-error"));
+          return;
       }
     } catch (error) {
       console.error(error);
@@ -124,112 +101,131 @@ const PlaceOrder: React.FC = () => {
       onSubmit={onSubmitHandler}
       className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t"
     >
-      {/* // ? ------------ LEFT SIDE ------------ */}
+      {/* // ? ------------ USER ADDRESS DATA ------------ */}
       <div className="flex flex-col gap-4 w-full max-w-[480px]">
         <div className="text-xl sm:text-2xl my-3">
           <Title text={t("place-order.delivery-info")} />
         </div>
+
         <div className="flex gap-3">
-          <input
-            required
-            onChange={onChangeHandler}
-            name="firstName"
-            value={formData.firstName}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder={t("place-order.first-name")}
-          />
-          {i18n.language === "uk" ? (
-            <input
-              required
-              onChange={onChangeHandler}
-              name="surName"
-              value={formData.surName}
-              className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-              type="text"
-              placeholder={t("place-order.surname")}
-            />
-          ) : null}
-          <input
-            required
+          {/* // ? ------------ LAST NAME ------------ */}
+          <TextField
             onChange={onChangeHandler}
             name="lastName"
             value={formData.lastName}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder={t("place-order.last-name")}
+            label={t("place-order.last-name")}
+            variant="outlined"
+            size="small"
+            required
+          />
+
+          {/* // ? ------------ FIRST NAME ------------ */}
+          <TextField
+            onChange={onChangeHandler}
+            name="firstName"
+            value={formData.firstName}
+            label={t("place-order.first-name")}
+            variant="outlined"
+            size="small"
+            required
+          />
+
+          {/* // ? ------------ SURNAME ------------ */}
+          <TextField
+            onChange={onChangeHandler}
+            name="surName"
+            value={formData.surName}
+            label={t("place-order.surname")}
+            variant="outlined"
+            size="small"
+            required
           />
         </div>
-        <input
-          required
+
+        {/* // ? ------------ EMAIL ------------ */}
+        <TextField
           onChange={onChangeHandler}
+          type="email"
           name="email"
           value={formData.email}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-          type="email"
-          placeholder={t("place-order.email")}
-        />
-        <input
+          label={t("place-order.email")}
+          variant="outlined"
+          size="small"
           required
-          onChange={onChangeHandler}
-          name="street"
-          value={formData.street}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-          type="text"
-          placeholder={t("place-order.street-placeholder")}
         />
 
         <div className="flex gap-3">
-          <input
-            required
-            onChange={onChangeHandler}
-            name="city"
-            value={formData.city}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder={t("place-order.city-placeholder")}
-          />
-          <input
-            required
+          {/* // ? ------------ REGION ------------ */}
+          <TextField
             onChange={onChangeHandler}
             name="region"
             value={formData.region}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder={t("place-order.region-placeholder")}
+            label={t("place-order.region-placeholder")}
+            variant="outlined"
+            size="small"
+            required
+          />
+
+          {/* // ? ------------ CITY ------------ */}
+          <TextField
+            onChange={onChangeHandler}
+            name="city"
+            value={formData.city}
+            label={t("place-order.city-placeholder")}
+            variant="outlined"
+            size="small"
+            required
           />
         </div>
 
         <div className="flex gap-3">
-          <input
-            required
+          {/* // ? ------------ STREET ------------ */}
+          <TextField
             onChange={onChangeHandler}
-            name="zipcode"
-            value={formData.zipcode}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full no-controls"
-            type="number"
-            placeholder={t("place-order.zipcode-placeholder")}
+            name="street"
+            value={formData.street}
+            label={t("place-order.street-placeholder")}
+            variant="outlined"
+            size="small"
+            required
           />
 
-          <input
+          {/* // ? ------------ ZIPCODE ------------ */}
+          <TextField
+            onChange={onChangeHandler}
+            name="zipcode"
+            type="number"
+            value={formData.zipcode}
+            label={t("place-order.zipcode-placeholder")}
+            variant="outlined"
+            size="small"
+            className="no-controls"
             required
+          />
+
+          {/* // ? ------------ COUNTRY ------------ */}
+          {/* <TextField
             onChange={onChangeHandler}
             name="country"
             value={formData.country}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder={t("place-order.country-placeholder")}
-          />
+            label={t("place-order.country-placeholder")}
+            variant="outlined"
+            size="small"
+            required
+          /> */}
         </div>
 
-        <input
-          required
+        {/* // ? ------------ PHONE ------------ */}
+        <TextField
           onChange={onChangeHandler}
           name="phone"
+          type="tel"
           value={formData.phone}
-          className="border border-gray-300 rounded py-1.5 px-3.5 w-full no-controls"
-          type="number"
-          placeholder={t("place-order.phone-placeholder")}
+          label={t("place-order.phone-placeholder")}
+          variant="outlined"
+          size="small"
+          className="no-controls"
+          required
         />
       </div>
 
@@ -257,18 +253,6 @@ const PlaceOrder: React.FC = () => {
             </div>
 
             <div
-              onClick={() => setPaymentMethod("razorpay")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
-            >
-              <p
-                className={`min-w-3.5 h-3.5 border rounded-full ${
-                  paymentMethod === "razorpay" ? "bg-green-400" : ""
-                }`}
-              ></p>
-              <img src={assets.razorpay_logo} className="h-5 mx-4" alt="" />
-            </div>
-
-            <div
               onClick={() => setPaymentMethod("cod")}
               className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
             >
@@ -283,10 +267,7 @@ const PlaceOrder: React.FC = () => {
             </div>
           </div>
           <div className="w-full text-end mt-8">
-            <button
-              type="submit"
-              className="bg-black text-white px-16 py-3 text-sm"
-            >
+            <button type="submit" className="bg-black text-white px-16 py-3 text-sm">
               {t("place-order.place-order-btn")}
             </button>
           </div>

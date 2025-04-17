@@ -7,14 +7,13 @@ const Footer: React.FC = () => {
 
   return (
     <div>
-      <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
+      <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-28 text-sm">
         <div>
           <img src={assets.logo} className="mb-5 h-8" alt="" />
           <p className="w-full md:w-2/3 text-gray-600">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci
-            sit eius neque corporis nesciunt itaque architecto at in ex beatae,
-            voluptatem laboriosam rem veniam quo sed ipsa, inventore placeat.
-            Officiis!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci sit eius neque
+            corporis nesciunt itaque architecto at in ex beatae, voluptatem laboriosam rem veniam
+            quo sed ipsa, inventore placeat. Officiis!
           </p>
         </div>
         <div>

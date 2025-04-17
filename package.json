@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.0",
     "axios": "^1.7.9",
     "i18next": "^24.2.1",
     "i18next-browser-languagedetector": "^8.0.2",
@@ -17,6 +20,7 @@
     "immer": "^10.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-headless-accordion": "^1.0.2",
     "react-i18next": "^15.4.0",
     "react-router-dom": "^7.1.1",
     "react-toastify": "^11.0.2",

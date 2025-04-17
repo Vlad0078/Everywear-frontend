@@ -1,25 +1,28 @@
 import { create } from "zustand";
-import { CartProductData, ProductData } from "../types/products";
+import { CartItem, ProductData } from "../types/product";
 import { produce } from "immer";
 import axios, { AxiosResponse } from "axios";
 import { backendUrl } from "../constants";
-import {
-  AddToCartRequestBody,
-  GetCartResponseBody,
-  ListProductsResponseBody,
-  ResponseBody,
-  UpdateCartRequestBody,
-} from "../types/api-requests";
+import { AddToCartRequestBody, ListProductsRequestBody, ResponseBody } from "../types/api-requests";
 import { toast } from "react-toastify";
-import { t } from "i18next";
+import { Category } from "../types/category";
+import { Subcategory } from "../types/subcategory";
+import {
+  fetchCategories,
+  fetchProducts,
+  fetchSubcategories,
+  fetchUserCart,
+  updateCart,
+} from "../utils/api";
 
 type ShopState = {
   products: ProductData[];
+  categories: Category[];
+  subcategories: Subcategory[];
   currency: string;
   delivery_fee: number;
-  search: string;
   showSearch: boolean;
-  cartItems: CartProductData;
+  cartItems: CartItem[];
   token: string;
 };
 
@@ -27,11 +30,12 @@ type ShopState = {
 
 const initialState: ShopState = {
   products: [],
-  currency: "$",
+  categories: [],
+  subcategories: [],
+  currency: "currency_hrn",
   delivery_fee: 10,
-  search: "",
   showSearch: false,
-  cartItems: {},
+  cartItems: [],
   token: localStorage.getItem("token") || "",
 };
 
@@ -39,27 +43,38 @@ const initialState: ShopState = {
 const useShopStore = create<ShopState>()(() => initialState);
 
 // * Actions
-const setSearch = (search: string) => useShopStore.setState({ search });
 
 // ? Token
 const setToken = (token: string) => useShopStore.setState({ token });
 
-const setShowSearch = (showSearch: boolean) =>
-  useShopStore.setState({ showSearch });
+const setShowSearch = (showSearch: boolean) => useShopStore.setState({ showSearch });
 
 // ? Add to Cart
-const addToCart = async (productId: string, size: string) => {
+const addToCart = async (productId: string, size: string, colorCode: string, price: number) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
-      if (draft.cartItems[productId]) {
-        if (draft.cartItems[productId][size]) {
-          // вже є такий розмір
-          draft.cartItems[productId][size].quantity += 1;
-        } else {
-          draft.cartItems[productId][size] = { quantity: 1 }; // такого розміру ще немає
-        }
+      const itemInCart = draft.cartItems.find((item) => {
+        return (
+          item.article.productId === productId &&
+          item.article.size === size &&
+          item.article.colorCode === colorCode
+        );
+      });
+
+      if (itemInCart) {
+        // вже є такий артикул
+        itemInCart.quantity += 1;
       } else {
-        draft.cartItems[productId] = { [size]: { quantity: 1 } }; // такого id ще немає
+        // такого артикула ще немає
+        draft.cartItems.push({
+          article: {
+            productId,
+            size,
+            colorCode,
+          },
+          quantity: 1,
+          price,
+        });
       }
     })
   );
@@ -69,13 +84,9 @@ const addToCart = async (productId: string, size: string) => {
 
   if (token) {
     try {
-      await axios.post<
-        ResponseBody,
-        AxiosResponse<ResponseBody>,
-        AddToCartRequestBody
-      >(
+      await axios.post<ResponseBody, AxiosResponse<ResponseBody>, AddToCartRequestBody>(
         backendUrl + "/api/cart/add",
-        { productId, size },
+        { productId, size, colorCode },
         { headers: { token } }
       );
     } catch (error) {
@@ -85,19 +96,51 @@ const addToCart = async (productId: string, size: string) => {
   }
 };
 
-const clearCart = () => useShopStore.setState({ cartItems: {} });
+const clearCart = () => useShopStore.setState({ cartItems: [] });
 
 const updateProductQuantity = async (
   productId: string,
   size: string,
-  quantity: number
+  colorCode: string,
+  quantity: number,
+  price: number
 ) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
-      if (draft.cartItems[productId] && draft.cartItems[productId][size]) {
-        draft.cartItems[productId][size].quantity = quantity;
+      if (quantity === 0) {
+        draft.cartItems = draft.cartItems.filter(
+          (item) =>
+            !(
+              item.article.productId === productId &&
+              item.article.size === size &&
+              item.article.colorCode === colorCode
+            )
+        );
       } else {
-        throw new Error("No such product in a cart!");
+        const itemInCart = draft.cartItems.find(
+          (item) =>
+            item.article.productId === productId &&
+            item.article.size === size &&
+            item.article.colorCode === colorCode
+        );
+
+        if (itemInCart) {
+          if (itemInCart) {
+            // вже є такий артикул
+            itemInCart.quantity = quantity;
+          } else {
+            // такого артикула ще немає
+            draft.cartItems.push({
+              article: {
+                productId,
+                size,
+                colorCode,
+              },
+              quantity,
+              price,
+            });
+          }
+        }
       }
     })
   );
@@ -106,106 +149,67 @@ const updateProductQuantity = async (
   const { token } = useShopStore.getState();
 
   if (token) {
-    try {
-      await axios.post<
-        ResponseBody,
-        AxiosResponse<ResponseBody>,
-        UpdateCartRequestBody
-      >(
-        backendUrl + "/api/cart/update",
-        { productId, size, quantity },
-        { headers: { token } }
-      );
-    } catch (error) {
-      console.error(error);
-      if (error instanceof Error) toast.error(error.message);
-    }
+    updateCart({ productId, size, colorCode, quantity }, token);
   }
 };
 
-const fetchProducts = async () => {
-  try {
-    const response = await axios.get<ListProductsResponseBody>(
-      backendUrl + "/api/product/list"
-    );
-    if (response.data.success) {
-      useShopStore.setState({ products: response.data.products });
-    } else {
-      toast.error(t("store.fetch-product-list-error"));
-    }
-  } catch (error) {
-    console.error(error);
-    if (error instanceof Error) {
-      toast.error(error.message);
-    }
+// ? Fetch categories
+const loadCategories = async () => {
+  const data = await fetchCategories();
+  if (data && data.categories) {
+    useShopStore.setState({ categories: data.categories });
   }
 };
 
-const fetchUserCart = async () => {
+// ? Fetch subcategories
+const loadSubcategories = async () => {
+  const data = await fetchSubcategories();
+  if (data && data.subcategories) {
+    useShopStore.setState({ subcategories: data.subcategories });
+  }
+};
+
+const loadProducts = async (filter?: ListProductsRequestBody) => {
+  const data = await fetchProducts(filter);
+  if (data && data.products) {
+    useShopStore.setState({ products: data.products });
+  }
+};
+
+const loadUserCart = async () => {
   const { token } = useShopStore.getState();
 
-  try {
-    const response = await axios.post<GetCartResponseBody>(
-      backendUrl + "/api/cart/get",
-      {},
-      { headers: { token } }
-    );
-    if (response.data.success) {
-      useShopStore.setState({ cartItems: response.data.cartData });
-    } else {
-      toast.error(t("store.fetch-product-list-error"));
-    }
-  } catch (error) {
-    console.error(error);
-    if (error instanceof Error) toast.error(error.message);
+  const data = await fetchUserCart(token);
+  if (data && data.cartData) {
+    useShopStore.setState({ cartItems: data.cartData });
   }
 };
 
 const useCartCount = () => {
   return useShopStore((state) => {
-    let totalCount = 0;
-    for (const id in state.cartItems) {
-      for (const size in state.cartItems[id]) {
-        totalCount += state.cartItems[id][size].quantity;
-      }
-    }
-
-    return totalCount;
+    return state.cartItems.reduce((totalCount, item) => totalCount + item.quantity, 0);
   });
 };
 
 const useCartTotalCost = () => {
-  //! async ?
   return useShopStore((state) => {
-    let totalCost = 0;
-    for (const id in state.cartItems) {
-      const product = state.products.find((product) => product._id === id); // ! тут може бути помилка
-      if (product === undefined) {
-        // throw new Error(`No products with id ${id}`);
-        return 0;
-      }
-
-      for (const size in state.cartItems[id]) {
-        if (state.cartItems[id][size].quantity > 0) {
-          totalCost += product.price * state.cartItems[id][size].quantity;
-        }
-      }
-    }
-
-    return totalCost;
+    return state.cartItems.reduce((totalCost, item) => {
+      return totalCost + item.quantity * item.price;
+    }, 0);
   });
 };
 
 export {
   useShopStore,
-  setSearch,
   setToken,
   setShowSearch,
   addToCart,
   clearCart,
   updateProductQuantity,
-  fetchProducts,
-  fetchUserCart,
+  loadUserCart,
   useCartCount,
+  loadCategories,
+  loadSubcategories,
+  loadProducts,
   useCartTotalCost,
 };

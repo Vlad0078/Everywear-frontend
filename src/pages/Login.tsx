@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoginRequestBody, ResponseBody } from "../types/api-requests";
+import { LoginRequestBody, RegisterRequestBody, ResponseBody } from "../types/api-requests";
 import { backendUrl } from "../constants";
 import { setToken, useShopStore } from "../store/store";
 import { toast } from "react-toastify";
@@ -28,25 +28,28 @@ const Login: React.FC = () => {
     event.preventDefault();
     try {
       if (currentState === "sign-up") {
-        const response = await axios.post<ResponseBody>(
-          backendUrl + "/api/user/register",
-          { name, email, password }
-        );
+        // ? Sign up
+        const response = await axios.post<
+          ResponseBody,
+          AxiosResponse<ResponseBody>,
+          RegisterRequestBody
+        >(backendUrl + "/api/user/register", { name, email, password });
         if (response.data.success) {
           setToken(response.data.token!);
           localStorage.setItem("token", response.data.token!);
         } else {
-          toast.error(t("login.sign-up-error"));
+          toast.error(response.data.message);
         }
       } else {
+        // ? Login
         const reqBody: LoginRequestBody = { email, password };
-        const response = await axios.post<ResponseBody>(
-          backendUrl + "/api/user/login",
-          reqBody,
-          {
-            params: { lng: i18n.language },
-          }
-        );
+        const response = await axios.post<
+          ResponseBody,
+          AxiosResponse<ResponseBody>,
+          LoginRequestBody
+        >(backendUrl + "/api/user/login", reqBody, {
+          params: { lng: i18n.language },
+        });
         if (response.data.success) {
           setToken(response.data.token!);
           localStorage.setItem("token", response.data.token!);
@@ -70,7 +73,7 @@ const Login: React.FC = () => {
         <p className="prata-regular text-3xl">{t(`login.${currentState}`)}</p>
         <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
       </div>
-      {currentState === "login" ? (
+      {["login", "password-recovery"].includes(currentState) ? (
         ""
       ) : (
         <input
@@ -90,36 +93,37 @@ const Login: React.FC = () => {
         placeholder={t("login.email")}
         required
       />
-      <input
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        type="password"
-        className="w-full px-3 py-2 border border-gray-800"
-        placeholder={t("login.password")}
-        required
-      />
+      {currentState === "password-recovery" ? (
+        ""
+      ) : (
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          className="w-full px-3 py-2 border border-gray-800"
+          placeholder={t("login.password")}
+          required
+        />
+      )}
       <div className="w-full flex justify-between text-sm mt-[-8px]">
-        <p className="cursor-pointer">{t("login.forgot-password")}</p>
+        <p
+          onClick={() => setCurrentState("password-recovery")}
+          className={`cursor-pointer ${currentState === "login" ? "" : " invisible"}`}
+        >
+          {t("login.forgot-password")}
+        </p>
         {currentState === "login" ? (
-          <p
-            onClick={() => setCurrentState("sign-up")}
-            className="cursor-pointer"
-          >
+          <p onClick={() => setCurrentState("sign-up")} className="cursor-pointer">
             {t("login.goto-sign-up")}
           </p>
         ) : (
-          <p
-            onClick={() => setCurrentState("login")}
-            className="cursor-pointer"
-          >
+          <p onClick={() => setCurrentState("login")} className="cursor-pointer">
             {t("login.goto-login")}
           </p>
         )}
       </div>
       <button className="bg-black text-white font-light px-8 py-2 mt-4">
-        {currentState === "login"
-          ? t("login.sign-in-btn")
-          : t("login.sign-up-btn")}
+        {currentState === "login" ? t("login.sign-in-btn") : t("login.sign-up-btn")}
       </button>
     </form>
   );

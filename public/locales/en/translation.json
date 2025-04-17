@@ -9,7 +9,10 @@
     "profile": "My profile",
     "logout": "Logout",
     "lang-en": "English",
-    "lang-uk": "Urkainian"
+    "lang-uk": "Urkainian",
+    "men": "Men",
+    "women": "Women",
+    "kids": "Kids"
   },
   "bestsellers": "Bestsellers",
   "best-sellers": "Best sellers",
@@ -43,19 +46,27 @@
     "type": "TYPE",
     "topwear": "Topwear",
     "bottomwear": "Bottomwear",
-    "winterwear": "Winterwear"
+    "winterwear": "Winterwear",
+    "brands": "BRANDS",
+    "sizes": "SIZES",
+    "colors": "COLORS"
   },
   "sort": {
     "sort-by": "Sort by",
     "relevant": "Relevant",
     "low-high": "Low to High",
-    "high-low": "High to Low"
+    "high-low": "High to Low",
+    "date-added": "",
+    "newest": "Newest"
   },
   "search": {
     "placeholder": "Search"
   },
   "collection-page": {
-    "all-collections": "ALL COLLECTIONS"
+    "all-collections": "ALL COLLECTIONS",
+    "men-collection": "MAN'S CLOTHING",
+    "women-collection": "WOMEN'S CLOTHING",
+    "kids-collection": "CHILDREN'S CLOTHING"
   },
   "product-info": {
     "select-size": "Select Size",
@@ -64,10 +75,11 @@
     "cash-on-delivery": "Cash on delivery is available on this product.",
     "return-exchange-polisy": "Easy return and exchange polisy within 7 days.",
     "description": "Description",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "select-color": "Select Color"
   },
   "related-products": "RELATED PRODUCTS",
-  "select-size": "Select Product Size",
+  "select-size": "Select Size",
   "cart": {
     "title": "CART",
     "total-cost": "CART TOTALS",
@@ -90,7 +102,9 @@
     "payment-method": "PAYMENT METHOD",
     "cash-on-delivery": "CASH ON DELIVERY",
     "place-order-btn": "PLACE ORDER",
-    "cart-empty-error": "The cart is empty"
+    "cart-empty-error": "The cart is empty",
+    "surname": "Surname",
+    "place-error": "Order creation error"
   },
   "orders": {
     "orders-title": "MY ORDERS",
@@ -112,6 +126,7 @@
     "email": "Email",
     "password": "Password",
     "login": "Login",
+    "password-recovery": "Password Recovery",
     "forgot-password": "Forgot your password?",
     "goto-sign-up": "Create account",
     "goto-login": "Login here",
@@ -193,5 +208,9 @@
       "10": "November",
       "11": "December"
     }
-  }
+  },
+  "currancy": "",
+  "currency_hrn": "hrn.",
+  "select-color": "Select Color",
+  "product-not-found": "Product not found"
 }

@@ -9,32 +9,38 @@ const CartTotal: React.FC = () => {
   const cartTotalCost = useCartTotalCost();
 
   const currency = useShopStore((state) => state.currency);
-  const delivery_fee = useShopStore((state) => state.delivery_fee);
+  // const delivery_fee = useShopStore((state) => state.delivery_fee);
 
   return (
     <div className="w-full">
-      <div className="text-2xl">
+      <div className="text-2xl flex justify-end">
         <Title text={t("cart.total-cost")} />
       </div>
       <div className="flex flex-col gap-2 mt-2 text-sm">
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <p>{t("cart.subtotal")}</p>
           <p>
-            {currency} {cartTotalCost}.00
+            {cartTotalCost}.00 {t(currency)}
           </p>
         </div>
         <hr />
         <div className="flex justify-between">
           <p>{t("cart.delivery-fee")}</p>
           <p>
-            {currency} {delivery_fee}.00
+            {delivery_fee}.00 {t(currency)}
           </p>
         </div>
         <div className="flex justify-between">
           <b>{t("cart.total")}</b>
           <b>
-            {currency} {cartTotalCost === 0 ? 0 : cartTotalCost + delivery_fee}
-            .00
+            {cartTotalCost === 0 ? 0 : cartTotalCost + delivery_fee}.00 {t(currency)}
+          </b>
+        </div> */}
+        <div className="flex justify-end">
+          {/* <div></div> */}
+          {/* <p className="text-lg">{t("cart.total")}</p> */}
+          <b className="text-lg">
+            {cartTotalCost}.00 {t(currency)}
           </b>
         </div>
       </div>

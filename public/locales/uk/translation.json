@@ -9,7 +9,10 @@
     "profile": "Профіль",
     "logout": "Вихід",
     "lang-en": "Англійська",
-    "lang-uk": "Українська"
+    "lang-uk": "Українська",
+    "men": "Чоловікам",
+    "women": "Жінкам",
+    "kids": "Дітям"
   },
   "bestsellers": "Хіти продажу",
   "best-sellers": "Хіти продажу",
@@ -43,28 +46,37 @@
     "type": "ТИП",
     "topwear": "Верхній одяг",
     "bottomwear": "Нижній одяг",
-    "winterwear": "Зимовий одяг"
+    "winterwear": "Зимовий одяг",
+    "brands": "БРЕНДИ",
+    "sizes": "РОЗМІРИ",
+    "colors": "КОЛЬОРИ"
   },
   "sort": {
-    "sort-by": "Сортувати",
+    "sort-by": "Сортувати за",
     "relevant": "Релевантністю",
-    "low-high": "Спочатку дешевші",
-    "high-low": "Спочатку дорожчі"
+    "low-high": "зростанням ціни",
+    "high-low": "спаданням ціни",
+    "date-added": "",
+    "newest": "новизною"
   },
   "search": {
     "placeholder": "Пошук"
   },
   "collection-page": {
-    "all-collections": "УСІ КОЛЕКЦІЇ"
+    "all-collections": "УСІ КОЛЕКЦІЇ",
+    "men-collection": "ЧОЛОВІЧИЙ ОДЯГ",
+    "women-collection": "ЖІНОЧИЙ ОДЯГ",
+    "kids-collection": "ДИТЯЧИЙ ОДЯГ"
   },
   "product-info": {
     "select-size": "Оберіть розмір",
-    "add-to-cart": "ДО КОШИКА",
+    "add-to-cart": "В КОШИК",
     "original": "Оригінальний продукт.",
     "cash-on-delivery": "Для цього товару доступна оплата при доставці.",
     "return-exchange-polisy": "Легке повернення та обмін протягом 7 днів.",
     "description": "Опис товару",
-    "reviews": "Відгуки"
+    "reviews": "Відгуки",
+    "select-color": "Оберіть колір"
   },
   "related-products": "ПОВ'ЯЗАНІ ТОВАРИ",
   "select-size": "Оберіть розмір",
@@ -91,7 +103,8 @@
     "payment-method": "СПОСІБ ОПЛАТИ",
     "cash-on-delivery": "ОПЛАТА ПРИ ОТРИМАННІ",
     "place-order-btn": "ЗАМОВИТИ",
-    "cart-empty-error": "Кошик порожній"
+    "cart-empty-error": "Кошик порожній",
+    "place-error": "Помилка формування замовлення"
   },
   "orders": {
     "orders-title": "МОЇ ЗАМОВЛЕННЯ",
@@ -113,6 +126,7 @@
     "email": "Пошта",
     "password": "Пароль",
     "login": "Вхід",
+    "password-recovery": "Відновлення паролю",
     "forgot-password": "Не пам'ятаю пароль",
     "goto-sign-up": "Створити аккаунт",
     "goto-login": "Увійти",
@@ -194,5 +208,9 @@
       "10": "листопада",
       "11": "грудня"
     }
-  }
+  },
+  "currancy": "",
+  "currency_hrn": "грн.",
+  "select-color": "Оберіть колір",
+  "product-not-found": "Товар не знайдено"
 }

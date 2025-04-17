@@ -15,7 +15,6 @@ const Verify: React.FC = () => {
   const orderId = searchParams.get("orderId");
 
   const verifyPayment = useCallback(async () => {
-    console.log(token, success, orderId);
     if (!token || success === null || orderId === null) return null;
 
     try {

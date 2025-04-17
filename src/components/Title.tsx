@@ -8,7 +8,7 @@ const Title: React.FC<TitleProps> = ({ text }) => {
   const words = text.trim().split(" ");
 
   return (
-    <div className="inline-flex gap-2 items-center mb-3">
+    <div className="inline-flex flex-wrap gap-2 items-center mb-3">
       {words.length > 1 ? (
         <p className="text-gray-500 uppercase">
           {words[0]}{" "}
