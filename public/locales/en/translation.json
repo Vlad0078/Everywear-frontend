@@ -18,21 +18,21 @@
   "best-sellers": "Best sellers",
   "latest-arrivals": "Latest Arrivals",
   "shop-now": "Shop now",
-  "latest-collections": "Latest collections",
+  "latest-collections": "Latest arrivals",
   "exchange-policy": "Easy Exchange Policy",
   "exchange-policy-subtitle": "We offer hassle free exchange policy",
-  "quality-policy": "7 Days Return Policy",
-  "quality-policy-subtitle": "We provide 7 days free return policy",
+  "quality-policy": "14 Days Return Policy",
+  "quality-policy-subtitle": "We provide 14 days free return policy",
   "support-policy": "Best Customer Support",
   "support-policy-subtitle": "We provide 24/7 customer support",
-  "newsletter-box": "Subscribe now and get 20% off",
+  "newsletter-box": "Subscribe now and get 20% off your first order",
   "email-placeholder": "Enter your email",
   "subscribe": "SUBSCRIBE",
   "footer": {
     "company": "COMPANY",
     "home": "Home",
     "about-us": "About us",
-    "delivery": "Delivery",
+    "delivery": "Payment and delivery",
     "privacy-policy": "Privacy policy",
     "get-in-touch": "GET IN TOUCH",
     "copyright": "Copyright 2025@ everywear.com - All Rights Reserved."
@@ -66,14 +66,15 @@
     "all-collections": "ALL COLLECTIONS",
     "men-collection": "MAN'S CLOTHING",
     "women-collection": "WOMEN'S CLOTHING",
-    "kids-collection": "CHILDREN'S CLOTHING"
+    "kids-collection": "CHILDREN'S CLOTHING",
+    "no-products": "No products were found for your search :("
   },
   "product-info": {
     "select-size": "Select Size",
     "add-to-cart": "ADD TO CART",
     "original": "Original product.",
     "cash-on-delivery": "Cash on delivery is available on this product.",
-    "return-exchange-polisy": "Easy return and exchange polisy within 7 days.",
+    "return-exchange-polisy": "Easy return and exchange polisy within 14 days.",
     "description": "Description",
     "reviews": "Reviews",
     "select-color": "Select Color"
@@ -93,7 +94,7 @@
     "first-name": "First name",
     "last-name": "Last name",
     "email": "Email address",
-    "street-placeholder": "Street",
+    "street-placeholder": "Street, bldg., apt.",
     "city-placeholder": "City",
     "region-placeholder": "Region",
     "country-placeholder": "Country",
@@ -113,11 +114,12 @@
     "track-order": "Track order",
     "payment-method": "Payment",
     "status": {
-      "Order Placed": "Замовлення оформлено",
-      "Ready to Ship": "Готове до відправки",
-      "Shipped": "Відправлено",
-      "Delivered": "Доставлено",
-      "Received": "Отримано"
+      "order-placed": "Order Placed",
+      "Order Placed": "Order Placed",
+      "Ready to Ship": "Ready to Ship",
+      "Shipped": "Shipped",
+      "Delivered": "Delivered",
+      "Received": "Received"
     }
   },
   "login": {
@@ -139,7 +141,10 @@
     "why-choose-us": "WHY CHOOSE US",
     "quality-assurance": "Quality Assurance",
     "convenience": "Convenience",
-    "customer-service": "Exceptional Customer Service"
+    "customer-service": "Exceptional Customer Service",
+    "family-clothing": "Clothing for the whole family",
+    "affordable-prices": "Prices affordable to everyone",
+    "quality-garantee": "Guaranteed quality"
   },
   "contact-page": {
     "contact-us": "CONTACT US",
@@ -163,7 +168,17 @@
   "orders-page": {
     "order-quantity": "",
     "item-quantity": "Quantity",
-    "item-size": "Size"
+    "item-size": "Size",
+    "pcs": "pcs",
+    "product-list-title": "Product List",
+    "product-qty": "Total products",
+    "order-amount": "Order amount",
+    "payment-status": "Payment status",
+    "payment-status-not-paid": "not paid",
+    "payment-status-paid": "paid",
+    "payment-method-cod": "cash on delivery",
+    "payment-method-stripe": "stripe",
+    "order-date": "Order date"
   },
   "month-names": {
     "full": {
@@ -212,5 +227,17 @@
   "currancy": "",
   "currency_hrn": "hrn.",
   "select-color": "Select Color",
-  "product-not-found": "Product not found"
+  "product-not-found": "Product not found",
+  "shipping-payment-page": {
+    "title": "Payment and delivery"
+  },
+  "checkout": {
+    "payment": "Payment for the order",
+    "delivery": "Delivery",
+    "exchange-return": "Exchange and return"
+  },
+  "product-page": {
+    "materials": "Materials",
+    "brand": "Brand"
+  }
 }

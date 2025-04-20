@@ -25,7 +25,8 @@ const ProductItem: React.FC<ProductItemProps> = ({ id, images, name, price }) =>
             alt=""
           />
         </div>
-        <p className="pt-3 pb-1 text-sm">{name}</p>
+        <p className="pt-3 pb-1 text-base sm:text-lg truncate">{name}</p>
+
         <p className="text-sm font-medium">
           {price} {t(currency)}
         </p>

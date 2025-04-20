@@ -87,11 +87,33 @@ const Product: React.FC = () => {
           <p className="mt-5 text-3xl font-medium">
             {productData.price} {t(currency)}
           </p>
-          <p className="mt-5 text-gray-500 md:w-4/5 ">
-            {i18n.language === "uk" ? productData.description_uk : productData.description_en}
-          </p>
+          {i18n.language === "uk" ? (
+            <>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">{productData.description_uk}</p>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">
+                {t("product-page.materials")}:{" "}
+                <span className="text-black">{productData.material_uk}</span>
+              </p>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">
+                {t("product-page.brand")}:{" "}
+                <span className="text-black">{productData.brand.name}</span>
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">{productData.description_en}</p>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">
+                {t("product-page.materials")}:{" "}
+                <span className="text-black">{productData.material_en}</span>
+              </p>
+              <p className="mt-5 text-gray-500 md:w-4/5 ">
+                {t("product-page.brand")}:{" "}
+                <span className="text-black">{productData.brand.name}</span>
+              </p>
+            </>
+          )}
           {/* //? SIZES */}
-          <div className="flex flex-col gap-4 my-8">
+          <div className="flex flex-col gap-4 mt-16 mb-8">
             <p>{t("product-info.select-size")}</p>
             <div className="flex gap-2 flex-wrap">
               {productData.sizes.map((item, index) => (

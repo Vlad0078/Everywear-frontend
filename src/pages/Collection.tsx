@@ -482,6 +482,11 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
               />
             ))}
           </div>
+          {products.length === 0 ? (
+            <p className="text-xl text-gray-700 font-normal text-center py-8">
+              {t("collection-page.no-products")}
+            </p>
+          ) : null}
         </div>
       </div>
     </>

@@ -91,12 +91,13 @@ interface OrderData {
   amount: number; // вартість
   status: OrderStatus;
   paymentMethod: PaymentMethod;
+  deliveryMethod: DeliveryMethod;
   payment: boolean;
-  // date: number; // дата формування замовлення
 }
 
 type OrderStatus = "order-placed" | "ready-to-ship" | "shipped" | "delivered" | "recieved";
 type PaymentMethod = "stripe" | "cod";
+type DeliveryMethod = "novapost" | "novapost-courier";
 
 // interface OrderItemWithData extends OrderItem {
 //   amount: number;
@@ -115,4 +116,13 @@ type PaymentMethod = "stripe" | "cod";
 //   size: string;
 // }
 
-export type { ProductData, ProductFullData, CartItem, UserAddressInfo, OrderData };
+export type {
+  ProductData,
+  ProductFullData,
+  CartItem,
+  UserAddressInfo,
+  OrderData,
+  OrderStatus,
+  PaymentMethod,
+  DeliveryMethod,
+};

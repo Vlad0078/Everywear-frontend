@@ -6,7 +6,6 @@ import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { clearCart, useShopStore } from "../store/store";
 import { OrderData, UserAddressInfo } from "../types/product";
-import { ResponseBody } from "../types/api-requests";
 import { toast } from "react-toastify";
 import { TextField } from "@mui/material";
 import { placeOrderCod, placeOrderStripe } from "../utils/api";
@@ -56,6 +55,7 @@ const PlaceOrder: React.FC = () => {
         address: formData,
         status: "order-placed",
         paymentMethod: "cod",
+        deliveryMethod: "novapost",
         payment: false,
       };
 

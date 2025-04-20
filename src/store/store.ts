@@ -53,6 +53,11 @@ const setShowSearch = (showSearch: boolean) => useShopStore.setState({ showSearc
 const addToCart = async (productId: string, size: string, colorCode: string, price: number) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
+      console.log(`productId ${productId} size ${size} colorCode ${colorCode} price ${price}`);
+
+      // console.log(draft.cartItems);
+      console.log(state.cartItems.length);
+
       const itemInCart = draft.cartItems.find((item) => {
         return (
           item.article.productId === productId &&
@@ -60,6 +65,8 @@ const addToCart = async (productId: string, size: string, colorCode: string, pri
           item.article.colorCode === colorCode
         );
       });
+
+      console.log("here2");
 
       if (itemInCart) {
         // вже є такий артикул

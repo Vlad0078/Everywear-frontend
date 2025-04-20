@@ -9,12 +9,10 @@ const NewsletterBox: React.FC = () => {
 
   return (
     <div className="text-center">
-      <p className="text-2xl font-medium text-gray-800">
-        {t("newsletter-box")}
-      </p>
+      <p className="text-2xl font-medium text-gray-800">{t("newsletter-box")}*</p>
       <p className="text-gray-400 mt-3">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum odio rerum
-        nobis vel vitae ducimus quasi dolorum accusantium non!
+        * Знижка діє лише на перше замовлення. При сумі замовлення від 2000 грн. знижка фіксована та
+        скадає 400 грн.
       </p>
       <form
         onSubmit={onSubmitHandler}
@@ -26,10 +24,7 @@ const NewsletterBox: React.FC = () => {
           required
           className="w-full sm:flex-1 outline-none"
         />{" "}
-        <button
-          type="submit"
-          className="bg-black text-white text-xs px-10 py-4"
-        >
+        <button type="submit" className="bg-black text-white text-xs px-10 py-4">
           {t("subscribe")}
         </button>
       </form>

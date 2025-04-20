@@ -10,8 +10,9 @@ const Home: React.FC = () => {
     <div>
       <Hero />
       <LatestCollection />
-      <BestSellers />
-      <OurPolicy />
+      {/* <BestSellers /> */}
+      {/* <OurPolicy /> */}
+      <div className="h-[5rem]"></div>
       <NewsletterBox />
     </div>
   );

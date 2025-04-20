@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import { loadUserCart, loadCategories, loadSubcategories } from "./store/store";
 import Verify from "./pages/Verify";
+import ShippingPayment from "./pages/ShippingPayment";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -33,7 +34,8 @@ const App: React.FC = () => {
         <Route path="/collection/men" element={<Collection target="men" />}></Route>
         <Route path="/collection/kids" element={<Collection target="kids" />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/delivery" element={<ShippingPayment />}></Route>
+        {/* <Route path="/contact" element={<Contact />}></Route> */}
         <Route path="/product/:productId" element={<Product />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/login" element={<Login />}></Route>

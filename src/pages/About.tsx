@@ -13,31 +13,20 @@ const About: React.FC = () => {
         <Title text={t("about-page.title")} />
       </div>
 
-      <div className="my-10 flex flex-col md:flex-row gap-16">
-        <img
-          src={assets.about_img}
-          className="w-full md:max-w-[450px]"
-          alt=""
-        />
+      <div className="my-10 flex flex-col md:flex-row gap-16 text-base sm:text-lg">
+        <img src={assets.about_img} className="w-full md:w-2/5" alt="" />
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat
-            ratione rem voluptatibus adipisci facilis autem consectetur iusto,
-            maxime illum aliquid nobis quas harum nulla necessitatibus
-            voluptates voluptatem. Odit, expedita laboriosam.
+            <b>Everywear</b> – це український інтернет-магазин стильного та зручного повсякденного
+            одягу для всієї сім’ї. У нашому каталозі ви знайдете футболки, джинси, светри, сукні від
+            провідних брендів та вітчизняних виробників. Ми дбаємо про те, щоб кожен елемент Вашого
+            гардеробу поєднував у собі комфорт, якість і сучасний дизайн.
           </p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus accusamus, excepturi enim omnis quod reprehenderit
-            nobis alias pariatur eveniet doloribus ipsam voluptatem eligendi
-            necessitatibus dolore. Magni consectetur est quam quod.
-          </p>
-          <b className="text-gray-800">// Our Mission</b>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore
-            cum libero animi sint incidunt magni, inventore repellendus. Dolores
-            voluptate maiores labore odit provident aliquid. Numquam ratione
-            repudiandae voluptatibus quis harum.
+            Ми постійно оновлюємо каталог, щоб Ви завжди мали доступ до найактуальніших трендів.
+            Наша мета – зробити процес вибору одягу простим і приємним, пропонуючи широкий
+            асортимент для чоловіків, жінок і дітей. Від базових речей на кожен день до стильних
+            акцентів для особливих моментів – у нас є все, щоб Ви могли виразити себе через моду.
           </p>
         </div>
       </div>
@@ -46,32 +35,26 @@ const About: React.FC = () => {
         <Title text={t("about-page.why-choose-us")} />
       </div>
 
-      <div className="flex flex-col md:flex-row text-sm mb-20">
-        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b>{t("about-page.quality-assurance")}:</b>
+      <div className="flex flex-col md:flex-row text-sm sm:text-base mb-20">
+        <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 w-1/3">
+          <b>{t("about-page.family-clothing")}</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus,
-            voluptas! Natus hic explicabo voluptatibus, quod, eveniet blanditiis
-            molestias nostrum rem facilis praesentium aspernatur. Iure, quasi
-            repellendus asperiores ea tempore quidem.
+            У нашому каталозі є стильні та зручні речі для чоловіків, жінок і дітей – від футболок і
+            джинсів до суконь і курток. Кожен знайде свій ідеальний образ!
           </p>
         </div>
-        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b>{t("about-page.convenience")}:</b>
+        <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 w-1/3">
+          <b>{t("about-page.affordable-prices")}</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, amet
-            et! Illum fugit cupiditate nemo voluptates repellendus unde error
-            suscipit perspiciatis quibusdam deleniti, exercitationem, quo
-            reiciendis nihil sapiente praesentium quia!
+            У Everywear ви знайдете одяг на будь-який бюджет – від доступних базових речей до
+            преміум-моделей.
           </p>
         </div>
-        <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
-          <b>{t("about-page.customer-service")}:</b>
+        <div className="border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 w-1/3">
+          <b>{t("about-page.quality-garantee")}</b>
           <p className="text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-            odio voluptatibus nobis ipsum provident ratione possimus, cupiditate
-            ipsa, nam ducimus, assumenda expedita aliquid voluptate distinctio
-            quia sapiente suscipit sed consectetur.
+            Ми співпрацюємо лише з перевіреними постачальниками та пропонуємо одяг, який поєднує
+            довговічність, комфорт і стиль.
           </p>
         </div>
       </div>
