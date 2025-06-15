@@ -15,6 +15,11 @@ import { ToastContainer } from "react-toastify";
 import { loadUserCart, loadCategories, loadSubcategories } from "./store/store";
 import Verify from "./pages/Verify";
 import ShippingPayment from "./pages/ShippingPayment";
+import SizeTables from "./pages/SizeTables";
+import UserProfile from "./pages/UserProfile";
+import ConfirmEmailChange from "./pages/ConfirmEmailChange";
+import VirtualTryOn from "./pages/VirtualTryOn";
+import TryOnHistory from "./pages/TryOnHistory";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -41,7 +46,12 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/place-order" element={<PlaceOrder />}></Route>
         <Route path="/orders" element={<Orders />}></Route>
-        <Route path="/verify" element={<Verify />}></Route>
+        <Route path="/verifyStripe" element={<Verify paymentMethod="stripe" />}></Route>
+        <Route path="/size-tables" element={<SizeTables />}></Route>
+        <Route path="/profile" element={<UserProfile />}></Route>
+        <Route path="/confirm-email" element={<ConfirmEmailChange />} />
+        <Route path="/try-on/history" element={<TryOnHistory />} />
+        <Route path="/try-on/:productId" element={<VirtualTryOn />} />
       </Routes>
       <Footer />
     </div>

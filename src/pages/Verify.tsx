@@ -6,7 +6,11 @@ import { ResponseBody, VerifyStripeRequestBody } from "../types/api-requests";
 import { backendUrl } from "../constants";
 import { toast } from "react-toastify";
 
-const Verify: React.FC = () => {
+interface VerifyProps {
+  paymentMethod: "stripe" | "plata";
+}
+
+const Verify: React.FC<VerifyProps> = ({ paymentMethod }) => {
   const navigate = useNavigate();
   const token = useShopStore((state) => state.token);
 
@@ -18,6 +22,14 @@ const Verify: React.FC = () => {
     if (!token || success === null || orderId === null) return null;
 
     try {
+      // plata
+      if (paymentMethod === "plata") {
+        clearCart();
+        navigate("/orders");
+        return;
+      }
+
+      // verify stripe
       const response = await axios.post<
         ResponseBody,
         AxiosResponse<ResponseBody>,
@@ -41,13 +53,13 @@ const Verify: React.FC = () => {
       console.error(error);
       if (error instanceof Error) toast.error(error.message);
     }
-  }, [navigate, orderId, success, token]);
+  }, [navigate, orderId, paymentMethod, success, token]);
 
   useEffect(() => {
     verifyPayment();
   }, [token, verifyPayment]);
 
-  return <div>d</div>;
+  return <div>Підтвердження оплати...</div>;
 };
 
 export default Verify;

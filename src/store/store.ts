@@ -14,6 +14,7 @@ import {
   fetchUserCart,
   updateCart,
 } from "../utils/api";
+import { useCallback } from "react";
 
 type ShopState = {
   products: ProductData[];
@@ -24,6 +25,7 @@ type ShopState = {
   showSearch: boolean;
   cartItems: CartItem[];
   token: string;
+  userId: string;
 };
 
 // * Defaults
@@ -37,6 +39,7 @@ const initialState: ShopState = {
   showSearch: false,
   cartItems: [],
   token: localStorage.getItem("token") || "",
+  userId: localStorage.getItem("userId") || "",
 };
 
 // * Store
@@ -45,7 +48,7 @@ const useShopStore = create<ShopState>()(() => initialState);
 // * Actions
 
 // ? Token
-const setToken = (token: string) => useShopStore.setState({ token });
+const setToken = (token: string, userId: string) => useShopStore.setState({ token, userId });
 
 const setShowSearch = (showSearch: boolean) => useShopStore.setState({ showSearch });
 
@@ -53,11 +56,6 @@ const setShowSearch = (showSearch: boolean) => useShopStore.setState({ showSearc
 const addToCart = async (productId: string, size: string, colorCode: string, price: number) => {
   useShopStore.setState((state) =>
     produce(state, (draft: ShopState) => {
-      console.log(`productId ${productId} size ${size} colorCode ${colorCode} price ${price}`);
-
-      // console.log(draft.cartItems);
-      console.log(state.cartItems.length);
-
       const itemInCart = draft.cartItems.find((item) => {
         return (
           item.article.productId === productId &&
@@ -65,8 +63,6 @@ const addToCart = async (productId: string, size: string, colorCode: string, pri
           item.article.colorCode === colorCode
         );
       });
-
-      console.log("here2");
 
       if (itemInCart) {
         // вже є такий артикул
@@ -101,6 +97,22 @@ const addToCart = async (productId: string, size: string, colorCode: string, pri
       if (error instanceof Error) toast.error(error.message);
     }
   }
+};
+
+// ? Check if prod is in cart
+const useItemInCart = (productId: string, size: string, colorCode: string) => {
+  return useShopStore(
+    useCallback(
+      (state) =>
+        state.cartItems.find(
+          (item) =>
+            item.article.productId === productId &&
+            item.article.size === size &&
+            item.article.colorCode === colorCode
+        ),
+      [productId, size, colorCode]
+    )
+  );
 };
 
 const clearCart = () => useShopStore.setState({ cartItems: [] });
@@ -211,6 +223,7 @@ export {
   setToken,
   setShowSearch,
   addToCart,
+  useItemInCart,
   clearCart,
   updateProductQuantity,
   loadUserCart,

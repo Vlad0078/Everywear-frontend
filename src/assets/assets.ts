@@ -15,11 +15,13 @@ import menu_icon from "./menu_icon.png";
 import about_img from "./about_img.jpg";
 import contact_img from "./contact_img.png";
 import stripe_logo from "./stripe_logo.png";
+import plata_logo from "./plata_logo.png";
 import cross_icon from "./cross_icon.png";
 import banner_woman from "./banner_woman.png";
 import banner_man from "./banner_man.png";
 import banner_kid from "./banner_kid.png";
 import banner_mobile from "./banner_mobile.png";
+import default_user_image from "./default_user_image.png";
 
 export const assets: Record<string, string> = {
   logo,
@@ -39,9 +41,11 @@ export const assets: Record<string, string> = {
   about_img,
   contact_img,
   stripe_logo,
+  plata_logo,
   cross_icon,
   banner_woman,
   banner_man,
   banner_kid,
   banner_mobile,
+  default_user_image,
 };

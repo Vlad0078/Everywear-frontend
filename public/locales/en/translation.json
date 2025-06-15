@@ -29,13 +29,14 @@
   "email-placeholder": "Enter your email",
   "subscribe": "SUBSCRIBE",
   "footer": {
-    "company": "COMPANY",
+    "company": "FOR CLIENTS",
     "home": "Home",
     "about-us": "About us",
     "delivery": "Payment and delivery",
     "privacy-policy": "Privacy policy",
     "get-in-touch": "GET IN TOUCH",
-    "copyright": "Copyright 2025@ everywear.com - All Rights Reserved."
+    "copyright": "Copyright © 2025 everywear.com - All Rights Reserved.",
+    "size-tables": "Size charts"
   },
   "filters": {
     "title": "FILTERS",
@@ -77,7 +78,10 @@
     "return-exchange-polisy": "Easy return and exchange polisy within 14 days.",
     "description": "Description",
     "reviews": "Reviews",
-    "select-color": "Select Color"
+    "select-color": "Select Color",
+    "go-to-cart": "GO TO CART",
+    "virtual-try-on": "Virtual Try-On",
+    "size-tables": "Size tables"
   },
   "related-products": "RELATED PRODUCTS",
   "select-size": "Select Size",
@@ -87,7 +91,9 @@
     "subtotal": "Subtotal",
     "delivery-fee": "Shipping Fee",
     "total": "Total",
-    "proceed-to-checkout": "PROCEED TO CHECKOUT"
+    "proceed-to-checkout": "PROCEED TO CHECKOUT",
+    "empty": "Cart is empty",
+    "proceed-to-order": ""
   },
   "place-order": {
     "delivery-info": "DELIVERY INFORMATION",
@@ -105,7 +111,8 @@
     "place-order-btn": "PLACE ORDER",
     "cart-empty-error": "The cart is empty",
     "surname": "Surname",
-    "place-error": "Order creation error"
+    "place-error": "Order creation error",
+    "proceed-to-payment": "PROCEED TO PAYMENT"
   },
   "orders": {
     "orders-title": "MY ORDERS",
@@ -178,6 +185,7 @@
     "payment-status-paid": "paid",
     "payment-method-cod": "cash on delivery",
     "payment-method-stripe": "stripe",
+    "payment-method-plata": "plata by mono",
     "order-date": "Order date"
   },
   "month-names": {
@@ -239,5 +247,32 @@
   "product-page": {
     "materials": "Materials",
     "brand": "Brand"
+  },
+  "reviews": {
+    "title": "CUSTOMER REVIEWS"
+  },
+  "size-tables": {
+    "title": "Size Charts",
+    "clothing": "Clothing",
+    "shoes": "Shoes",
+    "foot-length-header": "Foot Length (cm)",
+    "chest-header": "Chest (cm)",
+    "waist-length-header": "Waist (cm)",
+    "hips-length-header": "Hips (cm)",
+    "age-header": "Age",
+    "height-header": "Height (cm)",
+    "age-footnote": "Y — years, M — months",
+    "measurement-guide": {
+      "title": "How to Take Accurate Body Measurements",
+      "intro": "To ensure the best fit, it's important to measure your body accurately. Follow these steps for each measurement:",
+      "chest": "Chest: Measure around the fullest part of your chest, keeping the measuring tape horizontal and snug but not too tight. This is typically done just under your arms and across your shoulder blades.",
+      "waist": "Waist: Measure around the narrowest part of your waist, usually around your natural waistline (near your belly button). Keep the tape horizontal and not too tight.",
+      "hips": "Hips: Measure around the fullest part of your hips and buttocks, typically about 7-10 inches below your waist. Ensure the tape is horizontal and snug but comfortable.",
+      "footlength": "Foot Length: Place your foot on a flat surface (like a piece of paper), trace the outline of your foot with a pencil. Measure from the back of your heel to the tip of your longest toe. Note that feet can swell during the day, so it's best to measure in the evening.",
+      "tip": "Tip: For the most accurate results, have someone assist you with the measurements, especially for areas like the back or hard-to-reach spots. Also, make sure the measuring tape is flat and not twisted."
+    }
+  },
+  "vton": {
+    "result": ""
   }
 }

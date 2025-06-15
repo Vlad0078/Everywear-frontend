@@ -5,8 +5,9 @@ import { UserPublicInfo, UserRole } from "./user";
 import { Category } from "./category";
 import { Brand } from "./brand";
 import { Subcategory } from "./subcategory";
-import { Size } from "./size";
+import { Size, SizeTable } from "./size";
 import { Color } from "./color";
+import { Vton } from "./vton";
 
 interface CustomRequest extends Request {
   headers: IncomingHttpHeaders & {
@@ -28,8 +29,47 @@ interface LoginRequestBody {
   password: string;
 }
 
+interface LoginResponseBody extends ResponseBody {
+  userId?: string;
+}
+
 interface RegisterRequestBody extends LoginRequestBody {
   name: string;
+}
+
+interface RegisterResponseBody extends LoginResponseBody {}
+
+interface UpdateProfileRequestBody {
+  firstName?: string;
+  lastName?: string;
+  patronymic?: string;
+  phone?: string;
+  profilePicture?: string;
+}
+
+interface ChangePasswordRequestBody {
+  currentPassword: string;
+  newPassword: string;
+}
+
+interface RequestEmailChangeBody {
+  newEmail: string;
+}
+
+interface ConfirmEmailChangeBody {
+  token: string;
+}
+
+interface DeleteProfileRequestBody {
+  password: string;
+}
+
+interface UserRequestBody {
+  userId: string;
+}
+
+interface UserResponseBody extends ResponseBody {
+  userInfo?: UserPublicInfo;
 }
 
 //? product
@@ -107,12 +147,22 @@ interface UpdateStatusRequestBody {
   orderId: string;
   status: string;
 }
+interface confirmOrderRecievedRequestBody {
+  orderId: string;
+  status: string;
+}
 
 interface PlaceOrderRequestBody {
   order: OrderData;
 }
 
 interface VerifyStripeRequestBody {
+  orderId: string;
+  success: string;
+}
+
+interface VerifyPlataRequestBody {
+  invoiceId: string;
   orderId: string;
   success: string;
 }
@@ -125,6 +175,8 @@ interface OrdersResponseBody extends ResponseBody {
 interface StripeResponseBody extends ResponseBody {
   session_url?: string | null;
 }
+
+interface PlataResponseBody extends StripeResponseBody {}
 
 // managers
 interface ManagersRequestBody {
@@ -239,6 +291,9 @@ interface SizesResponseBody extends ResponseBody {
   sizes?: Size[];
   count?: number;
 }
+interface SizeTablesResponseBody extends ResponseBody {
+  sizeTables?: SizeTable[];
+}
 interface AddSizeRequestBody {
   size: Size;
 }
@@ -278,6 +333,23 @@ interface RemoveColorRequestBody {
   id: string;
 }
 
+// ? VTON
+interface TryOnRequestBody {
+  productId: string;
+}
+interface TryOnResponseBody extends ResponseBody {
+  vton?: Vton;
+}
+interface SingleVtonRequestBody {
+  vtonId: string;
+}
+interface SingleVtonResponseBody extends ResponseBody {
+  vton?: Vton;
+}
+interface VtonHistoryResponseBody extends ResponseBody {
+  history?: Vton[];
+}
+
 export type {
   CustomRequest,
   ResponseBody,
@@ -292,13 +364,26 @@ export type {
   GetCartResponseBody,
   AllOrdersRequestBody,
   UpdateStatusRequestBody,
+  confirmOrderRecievedRequestBody,
   PlaceOrderRequestBody,
   VerifyStripeRequestBody,
+  VerifyPlataRequestBody,
   OrdersResponseBody,
   StripeResponseBody,
+  PlataResponseBody,
   ManagersRequestBody,
   ManagersResponseBody,
   ChangeRoleRequestBody,
+  // ? user
+  LoginResponseBody,
+  RegisterResponseBody,
+  UpdateProfileRequestBody,
+  ChangePasswordRequestBody,
+  RequestEmailChangeBody,
+  ConfirmEmailChangeBody,
+  DeleteProfileRequestBody,
+  UserRequestBody,
+  UserResponseBody,
   // ? categories
   CategoriesRequestBody,
   CategoriesResponseBody,
@@ -320,6 +405,7 @@ export type {
   // sizes
   SizesRequestBody,
   SizesResponseBody,
+  SizeTablesResponseBody,
   AddSizeRequestBody,
   UpdateSizeRequestBody,
   RemoveSizeRequestBody,
@@ -329,4 +415,10 @@ export type {
   AddColorRequestBody,
   UpdateColorRequestBody,
   RemoveColorRequestBody,
+  // vton
+  TryOnRequestBody,
+  TryOnResponseBody,
+  SingleVtonRequestBody,
+  SingleVtonResponseBody,
+  VtonHistoryResponseBody,
 };

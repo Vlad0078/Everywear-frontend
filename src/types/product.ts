@@ -20,12 +20,20 @@ interface ProductData {
   brandId: string;
   // dateAdded: number;
   recommend: boolean;
+  vtonCategory?: VtonCategory;
+  vtonImage?: string;
   inStock: {
     sizeId: string;
     colorId: string;
     // left: number;
   }[];
   sold: number;
+}
+
+export enum VtonCategory {
+  upper_body = "upper_body",
+  lower_body = "lower_body",
+  dresses = "dresses",
 }
 
 interface ProductFullData extends ProductData {
@@ -96,7 +104,7 @@ interface OrderData {
 }
 
 type OrderStatus = "order-placed" | "ready-to-ship" | "shipped" | "delivered" | "recieved";
-type PaymentMethod = "stripe" | "cod";
+type PaymentMethod = "plata" | "stripe" | "cod";
 type DeliveryMethod = "novapost" | "novapost-courier";
 
 // interface OrderItemWithData extends OrderItem {

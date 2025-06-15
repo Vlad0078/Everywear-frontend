@@ -46,6 +46,15 @@ const Footer: React.FC = () => {
             >
               {t("footer.delivery")}
             </li>
+            <li
+              className="cursor-pointer"
+              onClick={() => {
+                navigate("/size-tables");
+                window.scrollTo(0, 0);
+              }}
+            >
+              {t("footer.size-tables")}
+            </li>
             {/* <li>{t("footer.privacy-policy")}</li> */}
           </ul>
         </div>
@@ -53,7 +62,7 @@ const Footer: React.FC = () => {
           <p className="text-xl font-medium mb-5">{t("footer.get-in-touch")}</p>
           <ul className="flex flex-col gap-1 text-gray-600">
             <li>+380 44 521-35-61</li>
-            <li>office@knu.ua</li>
+            <li>vlad822@knu.ua</li>
           </ul>
         </div>
       </div>

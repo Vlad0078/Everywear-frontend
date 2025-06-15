@@ -5,14 +5,17 @@ export enum UserRole {
   customer = "customer",
   manager = "manager",
   admin = "admin",
+  deleted = "deleted",
 }
 
 export interface UserPublicInfo {
   _id: string;
-  lastName?: string;
   firstName: string;
+  lastName?: string;
   patronymic?: string;
   email: string;
+  phone?: string;
+  profilePicture?: string;
   role: UserRole;
 }
 

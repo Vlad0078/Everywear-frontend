@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    setToken("");
+    setToken("", "");
     clearCart();
     navigate("/login");
   };
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
         /> */}
         <div className="group relative">
           <img
-            onClick={() => (token ? null : navigate("/login"))}
+            onClick={() => (token ? navigate("/profile") : navigate("/login"))}
             src={assets.profile_icon}
             className="w-5 min-w-5 cursor-pointer"
             alt=""
@@ -73,7 +73,9 @@ const Navbar: React.FC = () => {
           {token ? (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-50">
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-                <p className="cursor-pointer hover:text-black">{t("nav.profile")}</p>
+                <p onClick={() => navigate("/profile")} className="cursor-pointer hover:text-black">
+                  {t("nav.profile")}
+                </p>
                 <p onClick={() => navigate("/orders")} className="cursor-pointer hover:text-black">
                   {t("nav.orders")}
                 </p>
@@ -115,6 +117,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
+        {/* //? CART */}
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} className="w-5 min-w-5" alt="" />
           {cartCount > 0 ? (

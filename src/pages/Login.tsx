@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import React, { FormEventHandler, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { LoginRequestBody, RegisterRequestBody, ResponseBody } from "../types/api-requests";
+import {
+  LoginRequestBody,
+  LoginResponseBody,
+  RegisterRequestBody,
+  RegisterResponseBody,
+} from "../types/api-requests";
 import { backendUrl } from "../constants";
 import { setToken, useShopStore } from "../store/store";
 import { toast } from "react-toastify";
@@ -30,13 +35,14 @@ const Login: React.FC = () => {
       if (currentState === "sign-up") {
         // ? Sign up
         const response = await axios.post<
-          ResponseBody,
-          AxiosResponse<ResponseBody>,
+          RegisterResponseBody,
+          AxiosResponse<RegisterResponseBody>,
           RegisterRequestBody
         >(backendUrl + "/api/user/register", { name, email, password });
         if (response.data.success) {
-          setToken(response.data.token!);
+          setToken(response.data.token!, response.data.userId);
           localStorage.setItem("token", response.data.token!);
+          localStorage.setItem("userId", response.data.userId);
         } else {
           toast.error(response.data.message);
         }
@@ -44,15 +50,16 @@ const Login: React.FC = () => {
         // ? Login
         const reqBody: LoginRequestBody = { email, password };
         const response = await axios.post<
-          ResponseBody,
-          AxiosResponse<ResponseBody>,
+          LoginResponseBody,
+          AxiosResponse<LoginResponseBody>,
           LoginRequestBody
         >(backendUrl + "/api/user/login", reqBody, {
           params: { lng: i18n.language },
         });
         if (response.data.success) {
-          setToken(response.data.token!);
+          setToken(response.data.token!, response.data.userId);
           localStorage.setItem("token", response.data.token!);
+          localStorage.setItem("userId", response.data.userId);
         } else {
           toast.error(response.data.message);
         }
