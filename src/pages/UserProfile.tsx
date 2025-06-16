@@ -13,6 +13,7 @@ import {
   deleteUserProfile,
 } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import Title from "../components/Title";
 
 const UserProfile: React.FC = () => {
   const { t } = useTranslation();
@@ -172,7 +173,8 @@ const UserProfile: React.FC = () => {
 
   return (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 max-w-4xl mx-auto">
-      <h1 className="font-medium text-2xl mt-2">{t("user.profile-title")}</h1>
+			<h1 className="font-medium text-2xl mt-2">
+				<Title text={t("user.profile-title")} /></h1>
       <div className="flex flex-col gap-6 mt-8">
         {/* Зображення профілю */}
         <div className="relative w-48 h-48 group self-center">

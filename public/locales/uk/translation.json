@@ -12,7 +12,8 @@
     "lang-uk": "Українська",
     "men": "Чоловікам",
     "women": "Жінкам",
-    "kids": "Дітям"
+    "kids": "Дітям",
+    "try-on-history": "Примірки"
   },
   "bestsellers": "Хіти продажу",
   "best-sellers": "Хіти продажу",
@@ -25,7 +26,7 @@
   "support-policy": "Best Customer Support",
   "quality-policy": "14 Days Return Policy",
   "support-policy-subtitle": "We provide 24/7 customer support",
-  "newsletter-box": "Підпишіться зараз і отримайте знижку 20% на перше замовлення",
+  "newsletter-box": "Підпишіться щоб першими дізнатись про нові товари та акції",
   "email-placeholder": "Введіть ваш email",
   "subscribe": "ПІДПИСАТИСЬ",
   "footer": {
@@ -112,7 +113,11 @@
     "place-order-btn": "ЗАМОВИТИ",
     "cart-empty-error": "Кошик порожній",
     "place-error": "Помилка формування замовлення",
-    "proceed-to-payment": "ДО ОПЛАТИ"
+    "proceed-to-payment": "ДО ОПЛАТИ",
+    "delivery-method": "Спосіб доставки",
+    "warehouse-delivery": "Відділення або поштомат Нової Пошти",
+    "courier-delivery": "Кур'єром Нової Пошти",
+    "warehouse-placeholder": "Відділення"
   },
   "orders": {
     "orders-title": "МОЇ ЗАМОВЛЕННЯ",
@@ -283,9 +288,44 @@
     "v-progress": "Ваше фото майже готове...",
     "result": "Результат генерації",
     "generation-error": "Виникла помилка генерації",
-    "no-result": " ",
+    "no-result": "Результат недоступний",
     "processing": "Фото в обробці...",
     "v-try-on": "Приміряти",
-    "generation-complete": "Ваше фото готове"
+    "generation-complete": "Ваше фото готове",
+    "history-title": "ІСТОРІЯ ВІРТУАЛЬНИХ ПРИМІРОК",
+    "date": "Дата генерації",
+    "go-to-product": "До товару"
+  },
+  "user": {
+    "profile-title": "Профіль користувача",
+    "edit-profile": "Редагувати профіль",
+    "security-settings": "Налаштування безпеки",
+    "firstName": "Ім'я",
+    "firstName-placeholder": "Введіть ваше ім'я",
+    "lastName": "Прізвище",
+    "lastName-placeholder": "Введіть ваше прізвище",
+    "patronymic": "По батькові",
+    "patronymic-placeholder": "Введіть ваше по батькові",
+    "phone": "Телефон",
+    "phone-placeholder": "Введіть ваш номер телефону",
+    "save-profile": "Зберегти профіль",
+    "currentPassword": "Поточний пароль",
+    "currentPassword-placeholder": "Введіть ваш поточний пароль",
+    "newPassword": "Новий пароль",
+    "newPassword-placeholder": "Введіть ваш новий пароль",
+    "change-password": "Змінити пароль",
+    "newEmail": "Новий email",
+    "newEmail-placeholder": "Введіть ваш новий email",
+    "request-email-change": "Запросити зміну email",
+    "deletePassword": "Пароль",
+    "deletePassword-placeholder": "Введіть пароль для підтвердження видалення",
+    "delete-profile": "Видалити профіль",
+    "loading": "Завантаження...",
+    "unauthorized": "Ви не авторизовані. Будь ласка, увійдіть.",
+    "invalid-image-format": "Неправильний формат зображення. Завантажте зображення у форматі PNG або JPEG.",
+    "profile-updated": "Профіль успішно оновлено",
+    "password-changed": "Пароль успішно змінено",
+    "email-change-requested": "Запит на зміну email успішно надіслано",
+    "profile-deleted": "Профіль успішно видалено!"
   }
 }

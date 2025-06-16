@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useShopStore } from "../store/store";
 import { getTryOnHistory } from "../utils/api";
 import { Vton, VtonStatus } from "../types/vton";
+import Title from "../components/Title";
 
 const TryOnHistory: React.FC = () => {
   const { t } = useTranslation();
@@ -40,76 +41,100 @@ const TryOnHistory: React.FC = () => {
 
   return (
     <div className="border-t-2 pt-4 transition-opacity ease-in-out opacity-100 max-w-5xl mx-auto">
-      <h1 className="font-semibold text-3xl text-center mb-8">{t("vton.history-title")}</h1>
+      <h1 className="font-semibold text-3xl text-center mb-8"><Title text={t("vton.history-title")} /></h1>
       {isLoading ? (
         <div className="text-center text-gray-600">{t("vton.loading")}</div>
       ) : history.length === 0 ? (
         <div className="text-center text-gray-500">{t("vton.no-history")}</div>
       ) : (
         <div className="space-y-8">
-          {history.map((tryOn) => (
-            <div key={tryOn._id} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Зображення користувача */}
-              <div className="flex flex-col items-center">
-                <h2 className="text-xl font-semibold mb-4">{t("vton.user-image")}</h2>
-                <div className="relative w-full max-w-sm h-[450px]">
-                  {tryOn.personImageUrl ? (
-                    <img
-                      src={tryOn.personImageUrl}
-                      alt="User image"
-                      className="w-full h-full object-cover border border-gray-300 rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
-                      <p className="text-gray-500">{t("vton.no-image")}</p>
-                    </div>
-                  )}
+          {history.map((tryOn, index) => (
+            <div key={tryOn._id}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Зображення користувача */}
+                <div className="flex flex-col items-center">
+                  <h2 className="text-xl font-semibold mb-4">{t("vton.user-image")}</h2>
+                  <div className="relative w-full max-w-sm h-[450px]">
+                    {tryOn.personImageUrl ? (
+                      <img
+                        src={tryOn.personImageUrl}
+                        alt="User image"
+                        className="w-full h-full object-cover border border-gray-300 rounded-lg"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
+                        <p className="text-gray-500">{t("vton.no-image")}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Зображення одягу */}
-              <div className="flex flex-col items-center">
-                <h2 className="text-xl font-semibold mb-4">{t("vton.product-image")}</h2>
-                <div className="relative w-full max-w-sm h-[450px]">
-                  {tryOn.clothingImageUrl ? (
-                    <img
-                      src={tryOn.clothingImageUrl}
-                      alt="Clothing image"
-                      className="w-full h-full object-cover border border-gray-300 rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
-                      <p className="text-gray-500">{t("vton.no-image")}</p>
-                    </div>
-                  )}
+                {/* Зображення одягу */}
+                <div className="flex flex-col items-center">
+                  <h2 className="text-xl font-semibold mb-4">{t("vton.product-image")}</h2>
+                  <div className="relative w-full max-w-sm h-[450px]">
+                    {tryOn.clothingImageUrl ? (
+                      <img
+                        src={tryOn.clothingImageUrl}
+                        alt="Clothing image"
+                        className="w-full h-full object-cover border border-gray-300 rounded-lg"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
+                        <p className="text-gray-500">{t("vton.no-image")}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Результат генерації */}
-              <div className="flex flex-col items-center">
-                <h2 className="text-xl font-semibold mb-4">{t("vton.result")}</h2>
-                <div className="relative w-full max-w-sm h-[450px]">
-                  {tryOn.generatedImageUrl ? (
-                    <img
-                      src={tryOn.generatedImageUrl}
-                      alt="Generated result"
-                      className="w-full h-full object-cover border border-gray-300 rounded-lg"
-                    />
-                  ) : tryOn.status === VtonStatus.processing ? (
-                    <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
-                      <p className="text-gray-600">{t("vton.v-progress")}</p>
-                    </div>
-                  ) : tryOn.status === VtonStatus.error ? (
-                    <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
-                      <p className="text-red-500">{t("vton.generation-error")}</p>
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
-                      <p className="text-gray-500">{t("vton.no-result")}</p>
-                    </div>
-                  )}
+                {/* Результат генерації */}
+                <div className="flex flex-col items-center">
+                  <h2 className="text-xl font-semibold mb-4">{t("vton.result")}</h2>
+                  <div className="relative w-full max-w-sm h-[450px]">
+                    {tryOn.generatedImageUrl ? (
+                      <img
+                        src={tryOn.generatedImageUrl}
+                        alt="Generated result"
+                        className="w-full h-full object-cover border border-gray-300 rounded-lg"
+                      />
+                    ) : tryOn.status === VtonStatus.processing ? (
+                      <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
+                        <p className="text-gray-600">{t("vton.v-progress")}</p>
+                      </div>
+                    ) : tryOn.status === VtonStatus.error ? (
+                      <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
+                        <p className="text-red-500">{t("vton.generation-error")}</p>
+                      </div>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center border border-gray-400 rounded-lg bg-gray-100">
+                        <p className="text-gray-500">{t("vton.no-result")}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
+              {/* Дата примірки та кнопка */}
+              <div className="mt-4 flex justify-between items-center">
+                <p className="text-gray-600">
+                  {t("vton.date")}: {new Date(tryOn.createdAt).toLocaleString("uk-UA", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+                {tryOn.productId && (
+                  <button
+                    onClick={() => navigate(`/product/${tryOn.productId}`)}
+                    className="bg-black text-white px-6 py-2 text-sm font-semibold rounded hover:bg-gray-800 active:bg-gray-700 transition-colors"
+                  >
+                    {t("vton.go-to-product")}
+                  </button>
+                )}
+              </div>
+              {/* Роздільник */}
+              {index < history.length - 1 && <hr className="my-8 border-gray-300" />}
             </div>
           ))}
         </div>

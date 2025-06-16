@@ -9,10 +9,10 @@ const NewsletterBox: React.FC = () => {
 
   return (
     <div className="text-center">
-      <p className="text-2xl font-medium text-gray-800">{t("newsletter-box")}*</p>
+      <p className="text-2xl font-medium text-gray-800">{t("newsletter-box")}</p>
       <p className="text-gray-400 mt-3">
-        * Знижка діє лише на перше замовлення. При сумі замовлення від 2000 грн. знижка фіксована та
-        скадає 400 грн.
+        {/* * Знижка діє лише на перше замовлення. При сумі замовлення від 2000 грн. знижка фіксована та
+        скадає 400 грн. */}
       </p>
       <form
         onSubmit={onSubmitHandler}

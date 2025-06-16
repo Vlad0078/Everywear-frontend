@@ -12,7 +12,8 @@
     "lang-uk": "Urkainian",
     "men": "Men",
     "women": "Women",
-    "kids": "Kids"
+    "kids": "Kids",
+    "try-on-history": "Try-ons"
   },
   "bestsellers": "Bestsellers",
   "best-sellers": "Best sellers",
@@ -25,7 +26,7 @@
   "quality-policy-subtitle": "We provide 14 days free return policy",
   "support-policy": "Best Customer Support",
   "support-policy-subtitle": "We provide 24/7 customer support",
-  "newsletter-box": "Subscribe now and get 20% off your first order",
+  "newsletter-box": "Subscribe to be the first to know about new products and promotions",
   "email-placeholder": "Enter your email",
   "subscribe": "SUBSCRIBE",
   "footer": {
@@ -112,7 +113,11 @@
     "cart-empty-error": "The cart is empty",
     "surname": "Surname",
     "place-error": "Order creation error",
-    "proceed-to-payment": "PROCEED TO PAYMENT"
+    "proceed-to-payment": "PROCEED TO PAYMENT",
+    "delivery-method": "Delivery method",
+    "warehouse-delivery": "NovaPost warehouse or parcel terminal",
+    "courier-delivery": "Nova Poshta courier",
+    "warehouse-placeholder": "Warehouse"
   },
   "orders": {
     "orders-title": "MY ORDERS",
@@ -273,6 +278,41 @@
     }
   },
   "vton": {
-    "result": ""
+    "result": "",
+    "history-title": "VIRTUAL TRY-ON HISTORY"
+  },
+  "user": {
+    "user": {
+      "profile-title": "User Profile",
+      "edit-profile": "Edit Profile",
+      "security-settings": "Security Settings",
+      "firstName": "First Name",
+      "firstName-placeholder": "Enter your first name",
+      "lastName": "Last Name",
+      "lastName-placeholder": "Enter your last name",
+      "patronymic": "Patronymic",
+      "patronymic-placeholder": "Enter your patronymic",
+      "phone": "Phone",
+      "phone-placeholder": "Enter your phone number",
+      "save-profile": "Save Profile",
+      "currentPassword": "Current Password",
+      "currentPassword-placeholder": "Enter your current password",
+      "newPassword": "New Password",
+      "newPassword-placeholder": "Enter your new password",
+      "change-password": "Change Password",
+      "newEmail": "New Email",
+      "newEmail-placeholder": "Enter your new email",
+      "request-email-change": "Request Email Change",
+      "deletePassword": "Password",
+      "deletePassword-placeholder": "Enter your password to confirm deletion",
+      "delete-profile": "Delete Profile",
+      "loading": "Loading...",
+      "unauthorized": "You are not authorized. Please log in.",
+      "invalid-image-format": "Invalid image format. Please upload a PNG or JPEG image.",
+      "profile-updated": "Profile updated successfully",
+      "password-changed": "Password changed successfully",
+      "email-change-requested": "Email change request sent successfully",
+      "profile-deleted": "Profile deleted successfully!"
+    }
   }
 }

@@ -79,6 +79,9 @@ const Navbar: React.FC = () => {
                 <p onClick={() => navigate("/orders")} className="cursor-pointer hover:text-black">
                   {t("nav.orders")}
                 </p>
+                <p onClick={() => navigate("/try-on/history")} className="cursor-pointer hover:text-black">
+                  {t("nav.try-on-history")}
+                </p>
                 <p onClick={logout} className="cursor-pointer hover:text-black">
                   {t("nav.logout")}
                 </p>
@@ -135,7 +138,7 @@ const Navbar: React.FC = () => {
       </div>
       {/* // ? Бокове меню для малих екранів */}
       <div
-        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
+        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all z-50 h-screen ${
           visible ? "w-full" : "w-0"
         }`}
       >
@@ -178,13 +181,13 @@ const Navbar: React.FC = () => {
           >
             {t("about")}
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/contact"
             onClick={() => setVisible(false)}
             className="uppercase py-2 pl-6 border"
           >
             {t("contact")}
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
     </div>

@@ -13,7 +13,6 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
-  FormLabel,
   Autocomplete,
 } from "@mui/material";
 import {
@@ -22,14 +21,10 @@ import {
   placeOrderPlata,
   fetchCities,
   fetchWarehouses,
+  fetchRegions,
 } from "../utils/api";
 
-interface City {
-  Ref: string;
-  Description: string;
-}
-
-interface Warehouse {
+interface NPRecord {
   Ref: string;
   Description: string;
 }
@@ -42,7 +37,7 @@ const PlaceOrder: React.FC = () => {
   const cartItems = useShopStore((state) => state.cartItems);
 
   const [paymentMethod, setPaymentMethod] = useState<"cod" | "plata" | "stripe">("cod");
-  const [deliveryMethod, setDeliveryMethod] = useState<"courier" | "warehouse">("courier");
+  const [deliveryMethod, setDeliveryMethod] = useState<"courier" | "warehouse">("warehouse");
   const [formData, setFormData] = useState<UserAddressInfo>({
     firstName: "",
     surName: "",
@@ -52,18 +47,39 @@ const PlaceOrder: React.FC = () => {
     city: "",
     cityRef: "",
     region: "",
+    regionRef: "",
     zipcode: "",
     phone: "",
     warehouse: "",
     warehouseRef: "",
   });
-  const [cities, setCities] = useState<City[]>([]);
-  const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
+  const [regions, setRegions] = useState<NPRecord[]>([]);
+  const [cities, setCities] = useState<NPRecord[]>([]);
+  const [warehouses, setWarehouses] = useState<NPRecord[]>([]);
+
+  // Завантаження списку областей
+  useEffect(() => {
+    const loadRegions = async () => {
+      const response = await fetchRegions();
+      if (response && response.success) {
+        setRegions(response.data);
+      } else {
+        toast.error(t("place-order.cities-load-error"));
+      }
+    };
+    if (deliveryMethod === "warehouse") {
+      loadRegions();
+    }
+  }, [deliveryMethod, t]);
 
   // Завантаження списку міст
   useEffect(() => {
     const loadCities = async () => {
-      const response = await fetchCities();
+      if (!formData.regionRef) {
+        setCities([]);
+        return;
+      }
+      const response = await fetchCities(formData.regionRef);
       if (response && response.success) {
         setCities(response.data);
       } else {
@@ -73,7 +89,7 @@ const PlaceOrder: React.FC = () => {
     if (deliveryMethod === "warehouse") {
       loadCities();
     }
-  }, [deliveryMethod, t]);
+  }, [formData.regionRef, deliveryMethod, t]);
 
   // Завантаження списку відділень
   useEffect(() => {
@@ -196,21 +212,20 @@ const PlaceOrder: React.FC = () => {
 
         {/* Перемикач способу доставки */}
         <FormControl component="fieldset">
-          <FormLabel component="legend">{t("place-order.delivery-method")}</FormLabel>
           <RadioGroup
             row
             value={deliveryMethod}
             onChange={(e) => setDeliveryMethod(e.target.value as "courier" | "warehouse")}
           >
             <FormControlLabel
-              value="courier"
-              control={<Radio />}
-              label={t("place-order.courier-delivery")}
-            />
-            <FormControlLabel
               value="warehouse"
               control={<Radio />}
               label={t("place-order.warehouse-delivery")}
+            />
+            <FormControlLabel
+              value="courier"
+              control={<Radio />}
+              label={t("place-order.courier-delivery")}
             />
           </RadioGroup>
         </FormControl>
@@ -305,29 +320,59 @@ const PlaceOrder: React.FC = () => {
           </>
         ) : (
           <>
-            <Autocomplete
-              options={cities}
-              getOptionLabel={(option) => option.Description}
-              onChange={(event, value) =>
-                setFormData({
-                  ...formData,
-                  city: value?.Description || "",
-                  cityRef: value?.Ref || "",
-                  warehouse: "",
-                  warehouseRef: "",
-                })
-              }
-              value={cities.find((city) => city.Ref === formData.cityRef) || null}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={t("place-order.city-placeholder")}
-                  variant="outlined"
-                  size="small"
-                  required
-                />
-              )}
-            />
+            <div className="flex gap-3">
+              <Autocomplete
+                fullWidth
+                options={regions}
+                getOptionLabel={(option) => option.Description}
+                onChange={(event, value) =>
+                  setFormData({
+                    ...formData,
+                    region: value?.Description || "",
+                    regionRef: value?.Ref || "",
+                    city: "",
+                    cityRef: "",
+                    warehouse: "",
+                    warehouseRef: "",
+                  })
+                }
+                value={regions.find((region) => region.Ref === formData.regionRef) || null}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("place-order.region-placeholder")}
+                    variant="outlined"
+                    size="small"
+                    required
+                  />
+                )}
+              />
+              <Autocomplete
+                fullWidth
+                options={cities}
+                getOptionLabel={(option) => option.Description}
+                onChange={(event, value) =>
+                  setFormData({
+                    ...formData,
+                    city: value?.Description || "",
+                    cityRef: value?.Ref || "",
+                    warehouse: "",
+                    warehouseRef: "",
+                  })
+                }
+                disabled={!formData.regionRef}
+                value={cities.find((city) => city.Ref === formData.cityRef) || null}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("place-order.city-placeholder")}
+                    variant="outlined"
+                    size="small"
+                    required
+                  />
+                )}
+              />
+            </div>
             <Autocomplete
               options={warehouses}
               getOptionLabel={(option) => option.Description}
@@ -335,6 +380,7 @@ const PlaceOrder: React.FC = () => {
                 setFormData({
                   ...formData,
                   warehouse: value?.Description || "",
+                  street: value?.Description || "",
                   warehouseRef: value?.Ref || "",
                 })
               }

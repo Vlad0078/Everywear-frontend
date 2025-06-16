@@ -47,6 +47,7 @@ const App: React.FC = () => {
         <Route path="/place-order" element={<PlaceOrder />}></Route>
         <Route path="/orders" element={<Orders />}></Route>
         <Route path="/verifyStripe" element={<Verify paymentMethod="stripe" />}></Route>
+        <Route path="/verifyPlata" element={<Verify paymentMethod="plata" />}></Route>
         <Route path="/size-tables" element={<SizeTables />}></Route>
         <Route path="/profile" element={<UserProfile />}></Route>
         <Route path="/confirm-email" element={<ConfirmEmailChange />} />

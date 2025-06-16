@@ -84,7 +84,7 @@ const Product: React.FC = () => {
               {i18n.language === "uk" ? productData.name_uk : productData.name_en}
             </h1>
             {/* //! hardcode */}
-            <ProductRating rating={4.7} totalReviews={0} />
+            <ProductRating rating={0} totalReviews={0} />
             <p className="mt-5 text-3xl font-medium">
               {productData.price} {t(currency)}
             </p>
@@ -155,13 +155,15 @@ const Product: React.FC = () => {
             </div>
             {/* //? BUTTONS */}
             <div className="flex flex-col sm:flex-row gap-4 my-8">
-              <button
-                onClick={() => navigate(`/try-on/${productId}`)}
-                className="flex items-center justify-center gap-2 bg-white text-gray-800 border border-gray-700 px-6 py-3 text-sm font-semibold rounded-full hover:bg-black hover:text-white active:bg-gray-800 transition-colors"
-              >
-                <AiIcon />
-                {t("product-info.virtual-try-on")}
-              </button>
+              {productData.useVton ? (
+                <button
+                  onClick={() => navigate(`/try-on/${productId}`)}
+                  className="flex items-center justify-center gap-2 bg-white text-gray-800 border border-gray-700 px-6 py-3 text-sm font-semibold rounded-full hover:bg-black hover:text-white active:bg-gray-800 transition-colors"
+                >
+                  <AiIcon />
+                  {t("product-info.virtual-try-on")}
+                </button>
+              ) : null}
               <button
                 onClick={() => navigate("/size-tables")}
                 className="flex items-center justify-center gap-2 bg-white text-gray-800 border border-gray-700 px-6 py-3 text-sm font-semibold rounded-full hover:bg-black hover:text-white active:bg-gray-800 transition-colors"
@@ -203,7 +205,8 @@ const Product: React.FC = () => {
 					subCategory={productData.subCategory}
 				/> */}
       </div>
-      <Reviews
+      {/* //? ------------ REVIEWS ------------ */}
+      {/* <Reviews
         className="mt-12"
         reviews={[
           {
@@ -229,7 +232,7 @@ const Product: React.FC = () => {
             date: "30.05.2025",
           },
         ]}
-      />
+      /> */}
     </>
   ) : (
     <div className="opacity-0"></div>
