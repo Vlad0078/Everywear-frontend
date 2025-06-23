@@ -13,10 +13,20 @@ const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, setFiltersUpda
 
   return (
     <div className="border-t border-b bg-gray-50 text-center">
-      <div className="inline-flex items-center justify-center border border-gray-400 px-5 py-2 mx-3 my-5 rounded-full w-3/4 sm:w-1/2">
+      <form
+        className="inline-flex items-center justify-center border border-gray-400 px-5 py-2 mx-3 my-5 rounded-full w-3/4 sm:w-1/2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setFiltersUpdated(true);
+        }}
+      >
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            setFiltersUpdated(true);
+          }}
           type="text"
           placeholder={t("search.placeholder")}
           className="flex-1 outline-none bg-inherit text-sm"
@@ -29,7 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, setFiltersUpda
           className="w-4 cursor-pointer"
           alt=""
         />
-      </div>
+      </form>
       <img
         onClick={() => {
           setSearch("");

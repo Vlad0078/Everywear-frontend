@@ -51,7 +51,8 @@
     "winterwear": "Зимовий одяг",
     "brands": "БРЕНДИ",
     "sizes": "РОЗМІРИ",
-    "colors": "КОЛЬОРИ"
+    "colors": "КОЛЬОРИ",
+    "price": "ЦІНА"
   },
   "sort": {
     "sort-by": "Сортувати за",
@@ -69,7 +70,8 @@
     "men-collection": "ЧОЛОВІЧИЙ ОДЯГ",
     "women-collection": "ЖІНОЧИЙ ОДЯГ",
     "kids-collection": "ДИТЯЧИЙ ОДЯГ",
-    "no-products": "Не знайдено товарів за вашим запитом :("
+    "no-products": "Не знайдено товарів за вашим запитом :(",
+    "loading": "Шукаємо одяг для вас..."
   },
   "product-info": {
     "select-size": "Оберіть розмір",
@@ -131,7 +133,11 @@
       "Ready to Ship": "Готове до відправки",
       "Shipped": "Відправлено",
       "Delivered": "Доставлено",
-      "Received": "Отримано"
+      "Received": "Отримано",
+      "return-requested": "У процесі повернення",
+      "returned": "Повернено",
+      "return-rejected": "Повернення відхилено",
+      "cancelled": "Скасовано"
     }
   },
   "login": {
@@ -146,7 +152,19 @@
     "goto-login": "Увійти",
     "sign-up-btn": "Зареєструватися",
     "sign-in-btn": "Увійти",
-    "sign-up-error": "Користувач з такою електронною адресою вже існує"
+    "sign-up-error": "Користувач з такою електронною адресою вже існує",
+    "password-too-weak": "Пароль занадто слабкий",
+    "password-strength": "Надійність пароля",
+    "password-feedback": {
+      "too-short": "пароль занадто короткий"
+    },
+    "recover-password-btn": "Надіслати підтвердження",
+    "passwords-dont-match": "Паролі не співпадають",
+    "invalid-token": "Невірний токен",
+    "reset-password": "Скинути пароль",
+    "new-password": "Новий пароль",
+    "confirm-password": "Повторіть пароль",
+    "reset-password-btn": "Оновити пароль"
   },
   "about-page": {
     "title": "ПРО НАС",
@@ -191,7 +209,9 @@
     "payment-method-cod": "оплата при отриманні",
     "payment-method-stripe": "stripe",
     "payment-method-plata": "plata by mono",
-    "order-date": "Дата замовлення"
+    "order-date": "Дата замовлення",
+    "confirm-receipt-btn": "Підтвердити отримання",
+    "cancell-btn": "Скасувати замовлення"
   },
   "month-names": {
     "full": {
@@ -254,7 +274,14 @@
     "brand": "Бренд"
   },
   "reviews": {
-    "title": "ВІДГУКИ ПОКУПЦІВ"
+    "title": "ВІДГУКИ ПОКУПЦІВ",
+    "submit-error": "Не вдалося залишити відгук",
+    "submit-review": "Залишити відгук",
+    "write-review": "Ваш відгук",
+    "select-rating": "Оберіть оцінку",
+    "submit-success": "Відгук залишено",
+    "comment-placeholder": "Напишіть коментар до відгуку...",
+    "no-reviews": "Будьте першим, хто залишить відгук"
   },
   "size-tables": {
     "title": "Розмірні сітки",
@@ -288,7 +315,7 @@
     "v-progress": "Ваше фото майже готове...",
     "result": "Результат генерації",
     "generation-error": "Виникла помилка генерації",
-    "no-result": "Результат недоступний",
+    "no-result": "",
     "processing": "Фото в обробці...",
     "v-try-on": "Приміряти",
     "generation-complete": "Ваше фото готове",
@@ -326,6 +353,10 @@
     "profile-updated": "Профіль успішно оновлено",
     "password-changed": "Пароль успішно змінено",
     "email-change-requested": "Запит на зміну email успішно надіслано",
-    "profile-deleted": "Профіль успішно видалено!"
-  }
+    "profile-deleted": "Профіль успішно видалено!",
+    "email-change-title": "Зміна пошти",
+    "email-changed": "Електронну адресу змінено",
+    "go-to-login": "Увійти"
+  },
+  "everywear-slogan": "Одяг для всіх і кожного. Ваш стиль, ваш комфорт, ваш вибір."
 }

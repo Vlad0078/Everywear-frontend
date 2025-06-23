@@ -13,6 +13,7 @@ import { Size } from "../types/size";
 import { Brand } from "../types/brand";
 import { Color } from "../types/color";
 import SearchBar from "../components/SearchBar";
+import { Slider, TextField } from "@mui/material";
 
 interface FilterDropdowns {
   category: {
@@ -33,8 +34,8 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
   const allCategories = useShopStore((state) => state.categories);
   const allSubcategories = useShopStore((state) => state.subcategories);
 
+  const [productsLoaded, setProductsLoaded] = useState(false);
   const [simpleCategories, setSimpleCategories] = useState<{ _id: string; name: string }[]>([]);
-  // const [products, setProducts] = useState<ProductData[]>([]);
   const [search, setSearch] = useState("");
 
   const [showFilter, setShowFilter] = useState(false);
@@ -51,6 +52,10 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
   const [brandsId, setBrandsId] = useState<string[]>([]);
   const [colorsId, setColorsId] = useState<string[]>([]);
   const [sortType, setSortType] = useState<"newest" | "low-high" | "high-low">("newest");
+  const [priceRange, setPriceRange] = useState<number[]>([0, 20000]);
+  const [maxPriceLimit, setMaxPriceLimit] = useState<number>(20000);
+  const [minPriceInput, setMinPriceInput] = useState<string>("0");
+  const [maxPriceInput, setMaxPriceInput] = useState<string>("20000");
 
   const [filterDropdowns, setFilterDropdowns] = useState<FilterDropdowns>({
     category: {
@@ -74,13 +79,58 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
           name: i18n.language === "uk" ? category.name_uk : category.name_en,
         }))
         .sort((a, b) => a.name.localeCompare(b.name))
-    );
+		);
+		setProductsLoaded(false)
     fetchProducts({ target }).then((data) => {
       if (data && data.products) {
-        setProducts(data.products);
+				setProducts(data.products);
+				setProductsLoaded(true)
+        const maxProductPrice = Math.max(...data.products.map((p) => p.price), 20000);
+        setMaxPriceLimit(maxProductPrice);
+        setPriceRange([0, maxProductPrice]);
+        setMaxPriceInput(maxProductPrice.toString());
       }
     });
   }, [allCategories, target, t]);
+
+  const handlePriceChange = (event: Event, newValue: number | number[]) => {
+    setPriceRange(newValue as number[]);
+    setMinPriceInput((newValue as number[])[0].toString());
+    setMaxPriceInput((newValue as number[])[1].toString());
+  };
+
+  const handlePriceChangeCommitted = (event: Event, newValue: number | number[]) => {
+    setPriceRange(newValue as number[]);
+    setMinPriceInput((newValue as number[])[0].toString());
+    setMaxPriceInput((newValue as number[])[1].toString());
+    if ((newValue as number[])[1] < 40000) {
+      setMaxPriceLimit(40000);
+    }
+    setFiltersUpdated(true);
+  };
+
+  const handleMinPriceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setMinPriceInput(value);
+    const numValue = parseFloat(value);
+    if (!isNaN(numValue) && numValue >= 0 && numValue <= priceRange[1]) {
+      setPriceRange([numValue, priceRange[1]]);
+      setFiltersUpdated(true);
+    }
+  };
+
+  const handleMaxPriceInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setMaxPriceInput(value);
+    const numValue = parseFloat(value);
+    if (numValue > maxPriceLimit) {
+      setMaxPriceLimit(numValue);
+    } else if (numValue < 40000) {
+      setMaxPriceLimit(40000);
+    }
+    setPriceRange([priceRange[0], numValue]);
+    setFiltersUpdated(true);
+  };
 
   const selectSubcategory: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSubcategoryId(e.target.value);
@@ -130,7 +180,8 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
           sortField = "createdAt";
           sortDesc = true;
           break;
-      }
+			}
+			setProductsLoaded(false)
       fetchProducts({
         target,
         subcategoriesId: subcategoryId ? [subcategoryId] : undefined,
@@ -140,9 +191,12 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
         sortField,
         sortDesc,
         name_uk: search,
+        min_price: priceRange[0],
+        max_price: priceRange[1],
       }).then((data) => {
         if (data && data.products) {
-          setProducts(data.products);
+					setProducts(data.products);
+					setProductsLoaded(true)
           if (data.availBrands) {
             setAllBrands(data.availBrands);
           }
@@ -169,7 +223,7 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
       <SearchBar search={search} setSearch={setSearch} setFiltersUpdated={setFiltersUpdated} />
       <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
         {/* //? ********************* Filters */}
-        <div className="min-w-60">
+        <div className="min-w-60 max-w-[14.5rem]">
           <p
             onClick={() => setShowFilter((state) => !state)}
             className="my-2 text-xl flex items-center cursor-pointer gap-2"
@@ -181,6 +235,69 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
               alt=""
             />
           </p>
+          {/* //? Price Filter */}
+          <div
+            className={`text-base text-gray-700 border border-gray-300 px-5 py-3 mt-6 sm:block ${
+              showFilter ? "" : "hidden"
+            }`}
+          >
+            <p className="text-base font-medium pb-2">{t("filters.price")}</p>
+            <div className="w-[80%]]">
+              <Slider
+                value={priceRange}
+                onChange={handlePriceChange}
+                onChangeCommitted={() => handlePriceChangeCommitted}
+                valueLabelDisplay="auto"
+                min={0}
+                max={maxPriceLimit}
+                step={10}
+              />
+              <div className="flex justify-between items-center mt-2">
+                <TextField
+                  value={minPriceInput}
+                  onChange={handleMinPriceInputChange}
+                  type="number"
+                  size="small"
+                  sx={{ width: "47%" }}
+                  inputProps={{ min: 0, max: priceRange[1] }}
+                  InputProps={{
+                    sx: {
+                      // Chrome, Safari, Edge
+                      "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                        display: "none",
+                      },
+                      // Firefox
+                      "& input[type=number]": {
+                        MozAppearance: "textfield",
+                      },
+                    },
+                  }}
+                />
+                -
+                <TextField
+                  value={maxPriceInput}
+                  onChange={handleMaxPriceInputChange}
+                  type="number"
+                  size="small"
+                  sx={{ width: "47%" }}
+                  inputProps={{ min: priceRange[0], max: maxPriceLimit }}
+                  InputProps={{
+                    sx: {
+                      // Chrome, Safari, Edge
+                      "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                        display: "none",
+                      },
+                      // Firefox
+                      "& input[type=number]": {
+                        MozAppearance: "textfield",
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
           {/* //? Category Filter */}
           <div
             className={`text-base text-gray-700 border border-gray-300 pl-5 py-3 mt-6 sm:block ${
@@ -483,9 +600,15 @@ const Collection: React.FC<CollectionParams> = ({ target }) => {
             ))}
           </div>
           {products.length === 0 ? (
-            <p className="text-xl text-gray-700 font-normal text-center py-8">
-              {t("collection-page.no-products")}
-            </p>
+            productsLoaded ? (
+              <p className="text-xl text-gray-700 font-normal text-center py-8">
+                {t("collection-page.no-products")}
+              </p>
+            ) : (
+              <p className="text-xl text-gray-700 font-normal text-center py-8">
+                {t("collection-page.loading")}
+              </p>
+            )
           ) : null}
         </div>
       </div>

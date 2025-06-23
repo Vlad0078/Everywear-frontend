@@ -6,7 +6,7 @@ import axios, { AxiosResponse } from "axios";
 import { ColorsRequestBody, ColorsResponseBody, OrdersResponseBody } from "../types/api-requests";
 import { backendUrl } from "../constants";
 import { toast } from "react-toastify";
-import { OrderData, ProductData } from "../types/product";
+import { OrderData, OrderStatus, ProductData } from "../types/product";
 import { assets } from "../assets/assets";
 import { fetchProducts } from "../utils/api";
 import i18n from "../i18n";
@@ -120,6 +120,27 @@ const Orders: React.FC = () => {
       if (error instanceof Error) toast.error(error.message);
     }
   };
+  const cancellHandler = async (orderId: string) => {
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/order/cancell",
+        { orderId },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        fetchOrders();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     fetchOrders();
@@ -154,9 +175,7 @@ const Orders: React.FC = () => {
                   alt=""
                 />
                 <div>
-                  <p className="text-gray-500 py-0.5 sm:text-lg font-normal">
-                    {t("orders-page.product-list-title")}
-                  </p>
+                  <p className="text-gray-500 py-0.5 sm:text-base font-normal">id: {order._id}</p>
                   {order.items.map((item, index) => (
                     <div key={index} className="py-0.5 sm:text-base font-medium">
                       <p className="py-1">
@@ -221,15 +240,22 @@ const Orders: React.FC = () => {
               {/* Колонка 4: Статус */}
               <div className="flex flex-col justify-center items-start h-full gap-5 text-base md:text-lg font-medium">
                 <div className="flex items-center gap-2">
-                  <p className="min-w-2 h-2 rounded-full bg-green-500"></p>
+                  <p className={`min-w-2 h-2 rounded-full ${order.status === OrderStatus.cancelled || order.status === OrderStatus["return-rejected"] ? "bg-red-500"  : "bg-green-500"}`}></p>
                   <p>{t(`orders.status.${order.status}`)}</p>
                 </div>
                 {order.status === "Delivered" ? (
                   <button
-                    className="border border-black px-4 py-2 text-sm hover:bg-black hover:text-white transition-all duration-500"
+                    className="border border-black px-4 py-2 text-sm hover:bg-black hover:text-white transition-all duration-500 max-w-[80%]"
                     onClick={() => receiveHandler(order._id)}
                   >
-                    Підтвердити отримання
+                    {t("orders-page.confirm-receipt-btn")}
+                  </button>
+                ) : ["order-placed", "Ready to Ship", "Order Placed"].includes(order.status) ? (
+                  <button
+                    className="border border-black px-4 py-2 text-sm hover:bg-black hover:text-white transition-all duration-500 max-w-[80%]"
+                    onClick={() => cancellHandler(order._id)}
+                  >
+                    {t("orders-page.cancell-btn")}
                   </button>
                 ) : null}
               </div>

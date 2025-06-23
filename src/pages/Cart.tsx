@@ -13,9 +13,10 @@ const Cart: React.FC = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
+	
   const currency = useShopStore((state) => state.currency);
   const cartItems = useShopStore((state) => state.cartItems);
-
+	
   const [cartProducts, setCartProducts] = useState<{ [id: string]: ProductFullData }>({});
   const [productsLoaded, setProductsLoaded] = useState(false);
 
@@ -150,9 +151,9 @@ const Cart: React.FC = () => {
             </div>
           </div>
         </>
-      ) : (
+      ) : productsLoaded ? (
         <p className="text-2xl text-gray-700 font-normal text-center py-44">{t("cart.empty")}</p>
-      )}
+      ) : null}
     </div>
   );
 };

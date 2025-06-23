@@ -51,7 +51,8 @@
     "winterwear": "Winterwear",
     "brands": "BRANDS",
     "sizes": "SIZES",
-    "colors": "COLORS"
+    "colors": "COLORS",
+    "price": "PRICE"
   },
   "sort": {
     "sort-by": "Sort by",
@@ -69,7 +70,8 @@
     "men-collection": "MAN'S CLOTHING",
     "women-collection": "WOMEN'S CLOTHING",
     "kids-collection": "CHILDREN'S CLOTHING",
-    "no-products": "No products were found for your search :("
+    "no-products": "No products were found for your search :(",
+    "loading": "Loading..."
   },
   "product-info": {
     "select-size": "Select Size",
@@ -131,7 +133,11 @@
       "Ready to Ship": "Ready to Ship",
       "Shipped": "Shipped",
       "Delivered": "Delivered",
-      "Received": "Received"
+      "Received": "Received",
+      "return-requested": "Return requested",
+      "returned": "Returned",
+      "return-rejected": "Return rejected",
+      "cancelled": "Cancelled"
     }
   },
   "login": {
@@ -146,7 +152,19 @@
     "goto-login": "Login here",
     "sign-in-btn": "Sign In",
     "sign-up-btn": "Sign Up",
-    "sign-up-error": "User with this email already exists "
+    "sign-up-error": "User with this email already exists ",
+    "password-too-weak": "Password is too weak",
+    "password-strength": "Password strength",
+    "password-feedback": {
+      "too-short": "the password is too short"
+    },
+    "recover-password-btn": "Recover",
+    "passwords-dont-match": "Passwords don't match",
+    "invalid-token": "Invalid token",
+    "reset-password": "Reset password",
+    "confirm-password": "Confirm password",
+    "new-password": "New password",
+    "reset-password-btn": "Reset"
   },
   "about-page": {
     "title": "ABOUT US",
@@ -191,7 +209,9 @@
     "payment-method-cod": "cash on delivery",
     "payment-method-stripe": "stripe",
     "payment-method-plata": "plata by mono",
-    "order-date": "Order date"
+    "order-date": "Order date",
+    "confirm-receipt-btn": "Confirm receipt",
+    "cancell-btn": " Cancel order"
   },
   "month-names": {
     "full": {
@@ -254,7 +274,14 @@
     "brand": "Brand"
   },
   "reviews": {
-    "title": "CUSTOMER REVIEWS"
+    "title": "CUSTOMER REVIEWS",
+    "submit-error": "Could not submit",
+    "submit-review": "Place review",
+    "write-review": "Your review",
+    "select-rating": "Select rating",
+    "submit-success": "Submitted",
+    "comment-placeholder": "Write your comment...",
+    "no-reviews": "No reviws yet"
   },
   "size-tables": {
     "title": "Size Charts",
@@ -313,6 +340,10 @@
       "password-changed": "Password changed successfully",
       "email-change-requested": "Email change request sent successfully",
       "profile-deleted": "Profile deleted successfully!"
-    }
-  }
+    },
+    "email-change-title": "Email change",
+    "email-changed": "Email changed",
+    "go-to-login": "Login"
+  },
+  "everywear-slogan": "Clothing for everyone. Your style, your comfort, your choice."
 }

@@ -18,7 +18,7 @@ const ConfirmEmailChange: React.FC = () => {
       const token = searchParams.get("token");
       if (!token) {
         setIsLoading(false);
-        toast.error(t("user.invalid-token"));
+        toast.error(t("login.invalid-token"));
         return;
       }
 
@@ -60,7 +60,7 @@ const ConfirmEmailChange: React.FC = () => {
         </div>
       ) : (
         <div className="mt-6">
-          <p className="text-gray-700">{t("user.invalid-token")}</p>
+          <p className="text-gray-700">{t("login.invalid-token")}</p>
         </div>
       )}
     </div>

@@ -183,6 +183,16 @@ const fetchWarehouses = async (cityRef: string) => {
   );
 };
 
+// Отримати відгуки
+const fetchReviews = async (productId: string) => {
+  return fetchData("/api/review/list", { productId });
+};
+
+// Залишити відгук
+const submitReview = async (productId: string, rating: number, comment: string, token: string) => {
+  return fetchData("/api/review/add", { productId, rating, comment }, { token });
+};
+
 // ? Керування обліковим записом
 // Оновлення профілю користувача
 const updateProfile = async (newProfileData: UpdateProfileRequestBody, token: string) => {
@@ -232,6 +242,19 @@ const requestEmailChange = async (body: RequestEmailChangeBody, token: string) =
 // Підтвердження зміни email
 const confirmEmailChange = async (body: ConfirmEmailChangeBody) => {
   return fetchData<ConfirmEmailChangeBody, ResponseBody>("/api/user/confirmEmailChange", body);
+};
+
+// Запит на відновлення паролю
+const requestPasswordRecovery = async (email: string) => {
+  return fetchData<{ email: string }, ResponseBody>("/api/user/requestPasswordRecovery", { email });
+};
+
+// Підтвердження відновлення паролю
+const confirmPasswordRecovery = async (token: string, newPassword: string) => {
+  return fetchData<{ token: string; newPassword: string }, ResponseBody>(
+    "/api/user/confirmPasswordRecovery",
+    { token, newPassword }
+  );
 };
 
 // Видалення профілю
@@ -288,8 +311,12 @@ export {
   changePassword,
   requestEmailChange,
   confirmEmailChange,
+  requestPasswordRecovery,
+  confirmPasswordRecovery,
   deleteUserProfile,
   fetchUserInfo,
   createTryOn,
   getTryOnHistory,
+  fetchReviews,
+  submitReview,
 };

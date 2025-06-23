@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         <div>
           <img src={assets.logo} className="mb-5 h-8" alt="" />
           <p className="w-full md:w-2/3 text-gray-600 text-sm sm:text-base">
-            Одяг для всіх і кожного. Ваш стиль, ваш комфорт, ваш вибір.
+            {t("everywear-slogan")}
           </p>
         </div>
         <div>
@@ -45,6 +45,15 @@ const Footer: React.FC = () => {
               }}
             >
               {t("footer.delivery")}
+            </li>
+            <li
+              className="cursor-pointer"
+              onClick={() => {
+                navigate("/privacy-policy");
+                window.scrollTo(0, 0);
+              }}
+            >
+              {t("footer.privacy-policy")}
             </li>
             <li
               className="cursor-pointer"

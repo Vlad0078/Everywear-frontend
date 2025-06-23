@@ -20,6 +20,8 @@ import UserProfile from "./pages/UserProfile";
 import ConfirmEmailChange from "./pages/ConfirmEmailChange";
 import VirtualTryOn from "./pages/VirtualTryOn";
 import TryOnHistory from "./pages/TryOnHistory";
+import PasswordRecovery from "./pages/PasswordRecovery";
+import Privacy from "./pages/Privacy";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -39,6 +41,7 @@ const App: React.FC = () => {
         <Route path="/collection/men" element={<Collection target="men" />}></Route>
         <Route path="/collection/kids" element={<Collection target="kids" />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/privacy-policy" element={<Privacy />}></Route>
         <Route path="/delivery" element={<ShippingPayment />}></Route>
         {/* <Route path="/contact" element={<Contact />}></Route> */}
         <Route path="/product/:productId" element={<Product />}></Route>
@@ -51,6 +54,7 @@ const App: React.FC = () => {
         <Route path="/size-tables" element={<SizeTables />}></Route>
         <Route path="/profile" element={<UserProfile />}></Route>
         <Route path="/confirm-email" element={<ConfirmEmailChange />} />
+        <Route path="/reset-password" element={<PasswordRecovery />} />
         <Route path="/try-on/history" element={<TryOnHistory />} />
         <Route path="/try-on/:productId" element={<VirtualTryOn />} />
       </Routes>

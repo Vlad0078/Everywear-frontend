@@ -105,9 +105,6 @@ const ShippingPayment: React.FC = () => {
           </p>
         </section>
       </div>
-
-      {/* Підписка на новини */}
-      <NewsletterBox />
     </div>
   );
 };

@@ -4,12 +4,13 @@ import { addToCart, useItemInCart, useShopStore } from "../store/store";
 import { ProductFullData } from "../types/product";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import { fetchProductsById } from "../utils/api";
+import { fetchProductsById, fetchReviews } from "../utils/api";
 import i18n from "../i18n";
 import ProductRating from "../components/UI/ProductRating";
-import Reviews from "../components/Reviews";
+import Reviews, { Review } from "../components/Reviews";
 import AiIcon from "../components/icons/AiIcon";
 import RulerIcon from "../components/icons/RulerIcon";
+import ReviewForm from "../components/ReviewForm";
 
 const Product: React.FC = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const Product: React.FC = () => {
   const currency = useShopStore((state) => state.currency);
 
   const [productData, setProductData] = useState<ProductFullData | undefined>();
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [size, setSize] = useState("");
   const [colorCode, setColorCode] = useState("");
   const [image, setImage] = useState("");
@@ -33,6 +35,18 @@ const Product: React.FC = () => {
         const product = data.products[0];
         setProductData(product);
         setImage(product.images[0]);
+
+        const reviewData = await fetchReviews(product._id);
+        if (reviewData.success) {
+          const reviews = reviewData.data.map((review) => ({
+            id: review.id,
+            user: review.firstName,
+            rating: review.rating,
+            comment: review.comment,
+            date: review.createdAt,
+          }));
+          setReviews(reviews);
+        }
       }
     }
   }, [productId]);
@@ -84,7 +98,7 @@ const Product: React.FC = () => {
               {i18n.language === "uk" ? productData.name_uk : productData.name_en}
             </h1>
             {/* //! hardcode */}
-            <ProductRating rating={0} totalReviews={0} />
+            <ProductRating rating={reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length} totalReviews={reviews.length} />
             <p className="mt-5 text-3xl font-medium">
               {productData.price} {t(currency)}
             </p>
@@ -206,33 +220,8 @@ const Product: React.FC = () => {
 				/> */}
       </div>
       {/* //? ------------ REVIEWS ------------ */}
-      {/* <Reviews
-        className="mt-12"
-        reviews={[
-          {
-            id: 1,
-            user: "Олена К.",
-            rating: 5,
-            comment: "Чудова якість, дуже зручна річ! Швидка доставка.",
-            date: "03.06.2025",
-          },
-          {
-            id: 2,
-            user: "Максим П.",
-            rating: 4,
-            comment:
-              "Товар сподобався, але розмір трохи замалий. Рекомендую брати на розмір більше.",
-            date: "01.06.2025",
-          },
-          {
-            id: 3,
-            user: "Анна С.",
-            rating: 3,
-            comment: "Непогано, але колір трохи відрізняється від фото на сайті.",
-            date: "30.05.2025",
-          },
-        ]}
-      /> */}
+      <Reviews className="mt-12" reviews={reviews ?? []} />
+      <ReviewForm productId={productId ?? ""} loadProductData={loadProductData} />
     </>
   ) : (
     <div className="opacity-0"></div>
